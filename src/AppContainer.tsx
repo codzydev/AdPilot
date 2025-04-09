@@ -4,16 +4,18 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
-import { View } from "react-native";
-import { ThemedText } from "./components";
+import { useThemeColor } from "./hooks";
+import BottomTabs from "./routes/tabs/BottomTabs";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export const AppContainer = () => {
+  const backgroundColor = useThemeColor({}, "background");
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -31,16 +33,17 @@ export const AppContainer = () => {
     return null;
   }
 
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: backgroundColor,
+    },
+  };
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-      }}
-    >
-      <ThemedText>Hello Text</ThemedText>
-    </View>
+    <NavigationContainer theme={theme}>
+      <BottomTabs />
+    </NavigationContainer>
   );
 };

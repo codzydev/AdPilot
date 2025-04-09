@@ -1,5 +1,5 @@
-import { FontSize } from "@/src/constants";
-import { useThemeColor } from "@/src/hooks";
+import { FontSize } from "@/constants";
+import { useThemeColor } from "@/hooks";
 import { Text, TextProps } from "react-native";
 
 type Size = keyof typeof FontSize;
