@@ -51,19 +51,24 @@ export default function BottomTabs() {
               iconName = "settings";
               break;
           }
-          return <Ionicons name={iconName} size={size} color={colour} />; //iconSize = 25
+          return (
+            <TabLabel
+              label={route.name}
+              iconName={iconName}
+              size={size}
+              focused={focused}
+            />
+          );
         },
 
-        tabBarLabel: ({ focused }) => (
-          <TabLabel label={route.name} focused={focused} />
-        ),
+        tabBarLabel: ({ focused }) => null,
 
         tabBarStyle: {
           backgroundColor,
           ...defaultShadowOptions,
           shadowColor: borderColor,
           height: 85,
-          paddingTop: Padding.SMALL / 2,
+          paddingTop: Padding.SMALL,
         },
       })}
     >
