@@ -10,7 +10,6 @@ import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
 import { useThemeColor } from "./hooks";
 import BottomTabs from "./routes/tabs/BottomTabs";
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
