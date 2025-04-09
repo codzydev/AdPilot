@@ -1,15 +1,24 @@
-type Size = "extraSmall" | "small" | "medium" | "large" | "extraLarge";
+type Size =
+  | "xxSmall"
+  | "xSmall"
+  | "small"
+  | "medium"
+  | "large"
+  | "xLarge"
+  | "xxLarge";
 
 type FontSizeMap = {
   [key in Size]: number;
 };
 
 const fontSize: FontSizeMap = {
-  extraSmall: 10,
+  xxSmall: 8,
+  xSmall: 10,
   small: 12,
   medium: 14,
   large: 18,
-  extraLarge: 24,
+  xLarge: 24,
+  xxLarge: 32,
 };
 
 export const FontSize = {

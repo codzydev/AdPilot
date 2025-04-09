@@ -9,11 +9,10 @@ type Props = {
 export const TabLabel = ({ label, focused }: Props) => {
   const tabIconSelected = useThemeColor({}, "tabIconSelected");
   const tabIconDefault = useThemeColor({}, "tabIconDefault");
-
   const textColor = focused ? tabIconSelected : tabIconDefault;
 
   return (
-    <ThemedText lightColor={textColor} size="extraSmall">
+    <ThemedText lightColor={textColor} darkColor={textColor} size="xxSmall">
       {label}
     </ThemedText>
   );

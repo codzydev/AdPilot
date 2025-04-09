@@ -8,11 +8,16 @@ import {
   SettingsScreen,
 } from "@/screens";
 
+import { Padding } from "@/constants";
 import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../../types";
 import { TabNames } from "../Routes";
-import { defaultScreenOptions, useScreenWithHeaderOptions } from "../options";
+import {
+  defaultScreenOptions,
+  defaultShadowOptions,
+  useScreenWithHeaderOptions,
+} from "../options";
 import { TabLabel } from "./TabLabel";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -55,12 +60,10 @@ export default function BottomTabs() {
 
         tabBarStyle: {
           backgroundColor,
-          shadowOffset: { width: 0, height: 0 },
-          shadowRadius: 4,
-          shadowOpacity: 0.25,
+          ...defaultShadowOptions,
           shadowColor: borderColor,
           height: 85,
-          paddingTop: 4,
+          paddingTop: Padding.SMALL / 2,
         },
       })}
     >
