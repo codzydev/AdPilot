@@ -12,7 +12,7 @@ import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../../types";
 import { TabNames } from "../Routes";
-import { defaultScreenOptions } from "../options";
+import { defaultScreenOptions, useScreenWithHeaderOptions } from "../options";
 import { TabLabel } from "./TabLabel";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -24,7 +24,6 @@ export default function BottomTabs() {
     <Tab.Navigator
       initialRouteName={TabNames.DASHBOARD}
       screenOptions={({ route }) => ({
-        ...defaultScreenOptions,
         tabBarIcon: ({ size, focused }) => {
           let iconName: keyof typeof Ionicons.glyphMap = "home";
           const tabIconSelected = useThemeColor({}, "tabIconSelected");
@@ -55,8 +54,9 @@ export default function BottomTabs() {
         ),
 
         tabBarStyle: {
-          backgroundColor: backgroundColor,
+          backgroundColor,
           shadowOffset: { width: 0, height: 0 },
+          shadowRadius: 4,
           shadowOpacity: 0.25,
           shadowColor: borderColor,
           height: 85,
@@ -64,11 +64,31 @@ export default function BottomTabs() {
         },
       })}
     >
-      <Tab.Screen name={TabNames.DASHBOARD} component={DashboardScreen} />
-      <Tab.Screen name={TabNames.PERFORMANCE} component={PerformanceScrees} />
-      <Tab.Screen name={TabNames.ASSISTANCE} component={AssistantScreen} />
-      <Tab.Screen name={TabNames.CAMPAIGNS} component={CampaignScreens} />
-      <Tab.Screen name={TabNames.SETTINGS} component={SettingsScreen} />
+      <Tab.Screen
+        name={TabNames.DASHBOARD}
+        component={DashboardScreen}
+        options={useScreenWithHeaderOptions()}
+      />
+      <Tab.Screen
+        name={TabNames.PERFORMANCE}
+        component={PerformanceScrees}
+        options={defaultScreenOptions}
+      />
+      <Tab.Screen
+        name={TabNames.ASSISTANCE}
+        component={AssistantScreen}
+        options={defaultScreenOptions}
+      />
+      <Tab.Screen
+        name={TabNames.CAMPAIGNS}
+        component={CampaignScreens}
+        options={defaultScreenOptions}
+      />
+      <Tab.Screen
+        name={TabNames.SETTINGS}
+        component={SettingsScreen}
+        options={defaultScreenOptions}
+      />
     </Tab.Navigator>
   );
 }
