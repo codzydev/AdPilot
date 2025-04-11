@@ -1,12 +1,12 @@
 import { ThemedText } from "@/components";
 import { DashboardNavProp, DashboardRouteProp } from "@/routes";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { FC } from "react";
 import { StyleSheet, View } from "react-native";
 
 type Props = {};
 
-export const DashboardScreen = ({}: Props) => {
+export const DashboardScreen: FC<Props> = ({}) => {
   const navigation = useNavigation<DashboardNavProp>();
   const route = useNavigation<DashboardRouteProp>();
   return (

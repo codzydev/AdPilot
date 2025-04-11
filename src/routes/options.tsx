@@ -7,7 +7,7 @@ export const defaultShadowOptions = {
   shadowRadius: 4,
   shadowOpacity: 0.25,
 };
-export const defaultScreenOptions: BottomTabNavigationOptions = {
+export const defaultScreenOptions = {
   headerShown: false,
 };
 export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {

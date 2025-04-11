@@ -4,20 +4,20 @@ import {
   AssistantScreen,
   CampaignScreens,
   DashboardScreen,
-  PerformanceScrees,
-  SettingsScreen,
+  PerformanceScrees
 } from "@/screens";
 
 import { Padding } from "@/constants";
 import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import { RootTabParamList } from "../../types";
-import { TabNames } from "../Routes";
+import { TAB_NAMES } from "../Routes";
 import {
   defaultScreenOptions,
   defaultShadowOptions,
   useScreenWithHeaderOptions,
 } from "../options";
+import SettingsStack from "../stack/SettingsStack";
 import { TabLabel } from "./TabLabel";
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -27,7 +27,7 @@ export default function BottomTabs() {
   const borderColor = useThemeColor({}, "border");
   return (
     <Tab.Navigator
-      initialRouteName={TabNames.DASHBOARD}
+      initialRouteName={TAB_NAMES.DASHBOARD}
       screenOptions={({ route }) => ({
         tabBarIcon: ({ size, focused }) => {
           let iconName: keyof typeof Ionicons.glyphMap = "home";
@@ -35,19 +35,19 @@ export default function BottomTabs() {
           const tabIconDefault = useThemeColor({}, "tabIconDefault");
           const colour = focused ? tabIconSelected : tabIconDefault;
           switch (route.name) {
-            case TabNames.DASHBOARD:
+            case TAB_NAMES.DASHBOARD:
               iconName = "grid";
               break;
-            case TabNames.PERFORMANCE:
+            case TAB_NAMES.PERFORMANCE:
               iconName = "stats-chart";
               break;
-            case TabNames.ASSISTANCE:
+            case TAB_NAMES.ASSISTANCE:
               iconName = "help-circle";
               break;
-            case TabNames.CAMPAIGNS:
+            case TAB_NAMES.CAMPAIGNS:
               iconName = "megaphone";
               break;
-            case TabNames.SETTINGS:
+            case TAB_NAMES.SETTINGS:
               iconName = "settings";
               break;
           }
@@ -73,28 +73,28 @@ export default function BottomTabs() {
       })}
     >
       <Tab.Screen
-        name={TabNames.DASHBOARD}
+        name={TAB_NAMES.DASHBOARD}
         component={DashboardScreen}
         options={useScreenWithHeaderOptions()}
       />
       <Tab.Screen
-        name={TabNames.PERFORMANCE}
+        name={TAB_NAMES.PERFORMANCE}
         component={PerformanceScrees}
         options={defaultScreenOptions}
       />
       <Tab.Screen
-        name={TabNames.ASSISTANCE}
+        name={TAB_NAMES.ASSISTANCE}
         component={AssistantScreen}
         options={defaultScreenOptions}
       />
       <Tab.Screen
-        name={TabNames.CAMPAIGNS}
+        name={TAB_NAMES.CAMPAIGNS}
         component={CampaignScreens}
         options={defaultScreenOptions}
       />
       <Tab.Screen
-        name={TabNames.SETTINGS}
-        component={SettingsScreen}
+        name={TAB_NAMES.SETTINGS}
+        component={SettingsStack}
         options={defaultScreenOptions}
       />
     </Tab.Navigator>

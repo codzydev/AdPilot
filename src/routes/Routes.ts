@@ -1,7 +1,16 @@
-export const TabNames = {
-    DASHBOARD: 'Dashboard',
-    PERFORMANCE: 'Performance',
-    ASSISTANCE: 'Assistance',
-    CAMPAIGNS: 'Campaigns',
-    SETTINGS: 'Settings',
-  } as const;
+export const TAB_NAMES = {
+  DASHBOARD: "Dashboard",
+  PERFORMANCE: "Performance",
+  ASSISTANCE: "Assistance",
+  CAMPAIGNS: "Campaigns",
+  SETTINGS: "Settings",
+} as const;
+
+export const ROUTES = {
+  DASHBOARD_SCREEN: "DashboardScreen",
+  PERFORMANCE_SCREEN: "PerformanceScreen",
+  ASSISTANT_SCREEN: "AssistantScreen",
+  CAMPAIGN_SCREENS: "CampaignScreens",
+  SETTINGS_SCREEN: "SettingsScreen",
+  NOTIFICATIONS_SCREEN: "NotificationsScreen",
+} as const;
