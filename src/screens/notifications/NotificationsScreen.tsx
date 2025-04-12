@@ -10,12 +10,13 @@ import { StyleSheet, Text, View } from "react-native";
 type Props = {};
 
 export const NotificationsScreen: FC<Props> = (props) => {
-  const { navigate } = useNavigation<NotificationsScreenNavigationProp>();
+  const { navigate, goBack } =
+    useNavigation<NotificationsScreenNavigationProp>();
   const route = useRoute<NotificationsScreenRouteProp>();
   const { id } = route.params;
   return (
     <View style={styles.conatainer}>
-      <Text>NotificationsScreen</Text>
+      <Text onPress={() => goBack()}>NotificationsScreen</Text>
       <Text>{id}</Text>
 
       <Text onPress={() => navigate(ROUTES.FULL_SCREEN, { name: "Sam" })}>
@@ -26,5 +27,10 @@ export const NotificationsScreen: FC<Props> = (props) => {
 };
 
 const styles = StyleSheet.create({
-  conatainer: { flex: 1, justifyContent: "center", alignItems: "center" },
+  conatainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "pink",
+  },
 });

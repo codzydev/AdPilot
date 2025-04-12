@@ -1,6 +1,8 @@
 import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationOptions } from "@react-navigation/stack";
 
 export const defaultShadowOptions = {
   shadowOffset: { width: 0, height: 0 },
@@ -44,5 +46,33 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
         }}
       />
     ),
+  };
+};
+
+export const useScreenWithBackOptions = (): StackNavigationOptions => {
+  const backgroundColor = useThemeColor({}, "background");
+  const iconColor = useThemeColor({}, "icon");
+  const borderColor = useThemeColor({}, "border");
+
+  return {
+    headerTitle: () => null,
+    headerStyle: {
+      backgroundColor,
+      ...defaultShadowOptions,
+      shadowColor: borderColor,
+    },
+    headerLeft: () => {
+      const { goBack } = useNavigation();
+      return (
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color={iconColor}
+          style={{ marginLeft: 12 }}
+          onPress={() => goBack()}
+        />
+      );
+    },
+    headerRight: () => null,
   };
 };
