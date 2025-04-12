@@ -1,13 +1,8 @@
-import { RootTabParamList } from "@/types";
+import { BottomTabParamList } from "@/types";
 import { RouteProp } from "@react-navigation/native";
 import { TAB_NAMES } from "../Routes";
 
 export type DashboardRouteProp = RouteProp<
-  RootTabParamList,
+  BottomTabParamList,
   typeof TAB_NAMES.DASHBOARD
->;
-
-export type SettingsRouteProp = RouteProp<
-  RootTabParamList,
-  typeof TAB_NAMES.SETTINGS
 >;

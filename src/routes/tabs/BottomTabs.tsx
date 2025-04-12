@@ -10,7 +10,7 @@ import {
 import { Padding } from "@/constants";
 import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
-import { RootTabParamList } from "../../types";
+import { BottomTabParamList } from "../../types";
 import { TAB_NAMES } from "../Routes";
 import {
   defaultScreenOptions,
@@ -20,7 +20,7 @@ import {
 import SettingsStack from "../stack/SettingsStack";
 import { TabLabel } from "./TabLabel";
 
-const Tab = createBottomTabNavigator<RootTabParamList>();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabs() {
   const backgroundColor = useThemeColor({}, "background");

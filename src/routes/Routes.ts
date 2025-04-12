@@ -1,3 +1,5 @@
+
+export const ROOT_TABS = 'RootTabs';
 export const TAB_NAMES = {
   DASHBOARD: "Dashboard",
   PERFORMANCE: "Performance",
@@ -13,4 +15,5 @@ export const ROUTES = {
   CAMPAIGN_SCREENS: "CampaignScreens",
   SETTINGS_SCREEN: "SettingsScreen",
   NOTIFICATIONS_SCREEN: "NotificationsScreen",
+  FULL_SCREEN: "FullScreen",
 } as const;

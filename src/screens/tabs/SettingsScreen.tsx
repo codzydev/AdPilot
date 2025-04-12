@@ -10,13 +10,16 @@ export const SettingsScreen = ({}: Props) => {
 
   return (
     <View style={styles.conatainer}>
-      <Text>SettingsScreen</Text>
       <Text
         onPress={() =>
           navigate(ROUTES.NOTIFICATIONS_SCREEN, { id: "000000111111000000" })
         }
       >
         Go to Notifications
+      </Text>
+
+      <Text onPress={() => navigate(ROUTES.FULL_SCREEN, { name: "Bikas" })}>
+        Go to FullScreenPage
       </Text>
     </View>
   );

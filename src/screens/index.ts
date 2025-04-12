@@ -5,3 +5,6 @@ export * from "./tabs/PerformanceScrees";
 export * from "./tabs/SettingsScreen";
 
 export * from "./notifications/NotificationsScreen";
+
+
+export * from "./fullScreen/FullScreen";

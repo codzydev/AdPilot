@@ -1,12 +1,19 @@
-import { RootTabParamList, SettingStackParamList } from "@/types";
+import {
+  BottomTabParamList,
+  RootStackParamList,
+  SettingStackParamList,
+} from "@/types";
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { CompositeNavigationProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ROUTES } from "../Routes";
+import { ROUTES, TAB_NAMES } from "../Routes";
 
 export type SettingsScreenNavigationProp = CompositeNavigationProp<
   StackNavigationProp<SettingStackParamList, typeof ROUTES.SETTINGS_SCREEN>,
-  BottomTabNavigationProp<RootTabParamList>
+  CompositeNavigationProp<
+    BottomTabNavigationProp<BottomTabParamList, typeof TAB_NAMES.SETTINGS>,
+    StackNavigationProp<RootStackParamList>
+  >
 >;
 
 export type NotificationsScreenNavigationProp = CompositeNavigationProp<
@@ -14,5 +21,8 @@ export type NotificationsScreenNavigationProp = CompositeNavigationProp<
     SettingStackParamList,
     typeof ROUTES.NOTIFICATIONS_SCREEN
   >,
-  BottomTabNavigationProp<RootTabParamList>
+  CompositeNavigationProp<
+    BottomTabNavigationProp<BottomTabParamList, typeof TAB_NAMES.SETTINGS>,
+    StackNavigationProp<RootStackParamList>
+  >
 >;
