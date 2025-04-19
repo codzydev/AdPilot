@@ -6,13 +6,15 @@ import {
 } from "@react-navigation/stack";
 import { ROOT_TABS, ROUTES } from "../Routes";
 import BottomTabs from "../tabs/BottomTabs";
+import { CustomDrawer } from "../ drawer";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name={ROOT_TABS} component={BottomTabs} />
+      {/* <Stack.Screen name={ROOT_TABS} component={BottomTabs} /> */}
+      <Stack.Screen name={ROOT_TABS} component={CustomDrawer} />
       <Stack.Screen
         name={ROUTES.FULL_SCREEN}
         component={FullScreen}

@@ -1,3 +1,4 @@
+import { ThemedText } from "@/components";
 import { ROUTES, SettingsScreenNavigationProp } from "@/routes";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
@@ -10,6 +11,9 @@ export const SettingsScreen = ({}: Props) => {
 
   return (
     <View style={styles.conatainer}>
+      <ThemedText size="xxLarge" font="bold">
+        Settings Screen
+      </ThemedText>
       <Text
         onPress={() =>
           navigate(ROUTES.NOTIFICATIONS_SCREEN, { id: "000000111111000000" })

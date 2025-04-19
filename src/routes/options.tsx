@@ -1,7 +1,10 @@
+import { Margin } from "@/constants";
 import { useThemeColor } from "@/hooks";
+import { RootStackParamList } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native";
+import { NavigatorScreenParams, useNavigation } from "@react-navigation/native";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { StackNavigationOptions } from "@react-navigation/stack";
 
 export const defaultShadowOptions = {
@@ -16,7 +19,7 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
   const backgroundColor = useThemeColor({}, "background");
   const iconColor = useThemeColor({}, "icon");
   const borderColor = useThemeColor({}, "border");
-
+  const navigation = useNavigation<DrawerNavigationProp<RootStackParamList>>();
   return {
     headerTitle: () => null,
     headerStyle: {
@@ -29,10 +32,8 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
         name="menu"
         size={24}
         color={iconColor}
-        style={{ marginLeft: 0 }}
-        onPress={() => {
-          // handle left icon press
-        }}
+        style={{ marginLeft: Margin.MEDIUM }}
+        onPress={() => navigation.toggleDrawer()}
       />
     ),
     headerRight: () => (
@@ -40,7 +41,7 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
         name="notifications"
         size={24}
         color={iconColor}
-        style={{ marginRight: 0 }}
+        style={{ marginRight: Margin.MEDIUM }}
         onPress={() => {
           // handle right icon press
         }}

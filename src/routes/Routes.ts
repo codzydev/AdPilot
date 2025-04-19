@@ -1,5 +1,5 @@
-
-export const ROOT_TABS = 'RootTabs';
+export const ROOT_TABS = "RootTabs";
+export const DRAWER = "Drawer";
 export const TAB_NAMES = {
   DASHBOARD: "Dashboard",
   PERFORMANCE: "Performance",
