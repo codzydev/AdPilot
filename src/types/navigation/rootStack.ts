@@ -1,7 +1,8 @@
-import { DrawerParamList, ROOT_TABS, ROUTES } from "@/routes";
+import { DRAWER, DrawerParamList, ROOT_TABS, ROUTES } from "@/routes";
 import { NavigatorScreenParams } from "@react-navigation/native";
 
 export type RootStackParamList = {
-  [ROOT_TABS]: NavigatorScreenParams<DrawerParamList>;
+  [DRAWER]: undefined;
   [ROUTES.FULL_SCREEN]: { name: string };
+  [ROUTES.DRAWER_SCREEN]: { name: string };
 };

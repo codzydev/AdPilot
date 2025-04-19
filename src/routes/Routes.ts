@@ -16,4 +16,5 @@ export const ROUTES = {
   SETTINGS_SCREEN: "SettingsScreen",
   NOTIFICATIONS_SCREEN: "NotificationsScreen",
   FULL_SCREEN: "FullScreen",
+  DRAWER_SCREEN: "DrawerScreen",
 } as const;

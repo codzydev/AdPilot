@@ -12,9 +12,13 @@ export const DashboardScreen: FC<Props> = ({}) => {
   const route = useNavigation<DashboardRouteProp>();
   return (
     <View style={styles.conatainer}>
-      <ThemedText>DashboardScreen</ThemedText>
-      <Text onPress={() => navigate(ROUTES.FULL_SCREEN, { name: "Akash" })}>
-        Go to FullScreenPage
+      <ThemedText size="xxLarge" font="bold">
+        DashboardScreen
+      </ThemedText>
+      <Text
+        onPress={() => navigate(ROUTES.DRAWER_SCREEN, { name: "Akash Cash" })}
+      >
+        Open Drawer
       </Text>
       {/* <Button title='hello' onPress={() => navigation.openDrawer()}>Open drawer</Button> */}
     </View>

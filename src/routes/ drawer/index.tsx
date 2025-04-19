@@ -5,7 +5,6 @@ import React, { FC } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { DRAWER } from "../Routes";
 import BottomTabs from "../tabs/BottomTabs";
-import { Content } from "./Content";
 
 type Props = {};
 
@@ -26,7 +25,7 @@ export type DrawerParamList = {
 };
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
-
+const LazyContent = React.lazy(() => import("./Content"));
 export const CustomDrawer = () => (
   <Drawer.Navigator
     screenOptions={{
@@ -36,7 +35,13 @@ export const CustomDrawer = () => (
         width: "70%", // <-- Set your custom drawer width here
       },
     }}
-    drawerContent={(props) => <Content {...props} />}
+    drawerContent={(props) => {
+      return (
+        <React.Suspense fallback={<Text>Loading...</Text>}>
+          <LazyContent {...props} />
+        </React.Suspense>
+      );
+    }}
   >
     <Drawer.Screen name={DRAWER} component={BottomTabs} />
   </Drawer.Navigator>

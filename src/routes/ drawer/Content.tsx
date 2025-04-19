@@ -1,13 +1,16 @@
 // src/components/navigation/CustomDrawerContent.tsx
 
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
+import { useNavigation } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export const Content = (props: DrawerContentComponentProps) => {
+const Content = (props: DrawerContentComponentProps) => {
   const { navigation } = props;
   const insets = useSafeAreaInsets();
+
+  // const navigation = useNavigation();
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
@@ -40,6 +43,7 @@ export const Content = (props: DrawerContentComponentProps) => {
   );
 };
 
+export default Content;
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: "teal" },
   header: { fontSize: 22, fontWeight: "bold", marginBottom: 20 },

@@ -8,3 +8,4 @@ export * from "./notifications/NotificationsScreen";
 
 
 export * from "./fullScreen/FullScreen";
+export * from "./drawer/DrawerScreen";
