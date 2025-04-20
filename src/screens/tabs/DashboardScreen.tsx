@@ -1,8 +1,8 @@
 import { ThemedText } from "@/components";
-import { DashboardNavProp, DashboardRouteProp, ROUTES } from "@/routes";
+import { DashboardNavProp } from "@/routes";
 import { useNavigation } from "@react-navigation/native";
 import React, { FC } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 type Props = {};
 
@@ -13,7 +13,7 @@ export const DashboardScreen: FC<Props> = ({}) => {
       <ThemedText size="xxLarge" font="bold">
         DashboardScreen
       </ThemedText>
-      <Text onPress={() => navigate(ROUTES.DRAWER_SCREEN)}>Open Drawer</Text>
+      <Text>Open Drawer</Text>
     </View>
   );
 };

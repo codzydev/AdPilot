@@ -1,5 +1,4 @@
-export const ROOT_TABS = "rootTabs";
-export const DRAWER = "drawer";
+export const ROOT_STACK = "rootTabs";
 export const AUTH_STACK = "authStack";
 export const TAB_NAMES = {
   DASHBOARD: "dashboard",
@@ -17,7 +16,6 @@ export const ROUTES = {
   SETTINGS_SCREEN: "settingsScreen",
   NOTIFICATIONS_SCREEN: "notificationsScreen",
   FULL_SCREEN: "fullScreen",
-  DRAWER_SCREEN: "drawerScreen",
   LOGIN_SCREEN: "loginScreen",
   ONBORDING_SCREEN: "onboardingScreen",
 } as const;

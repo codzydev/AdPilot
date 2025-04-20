@@ -18,7 +18,6 @@ export const NavContainer: FC<Props> = ({ children }) => {
       background: backgroundColor,
     },
   };
-
   return (
     <NavigationContainer theme={theme} ref={navigationRef}>
       {children}

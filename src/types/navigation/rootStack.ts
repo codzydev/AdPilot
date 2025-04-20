@@ -1,10 +1,9 @@
-import { AUTH_STACK, DRAWER, ROOT_TABS, ROUTES } from "@/routes";
-import { BottomTabParamList } from "./tabNavigation";
+import { AUTH_STACK, ROOT_STACK, ROUTES } from "@/routes";
 import { NavigatorScreenParams } from "@react-navigation/native";
+import { BottomTabParamList } from "./tabNavigation";
 
 export type RootStackParamList = {
-  [ROOT_TABS]: NavigatorScreenParams<BottomTabParamList>;
+  [ROOT_STACK]: NavigatorScreenParams<BottomTabParamList>;
   [ROUTES.FULL_SCREEN]: { name: string };
-  [ROUTES.DRAWER_SCREEN]: undefined;
   [AUTH_STACK]: undefined;
 };

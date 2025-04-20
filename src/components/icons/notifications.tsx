@@ -1,10 +1,11 @@
 import { Margin } from "@/constants";
-import { ROUTES, TAB_NAMES } from "@/routes";
-import { navigationRef, resetToTabWithStack } from "@/routes/ref/navigationRef";
-import { RootStackParamList } from "@/types";
+import {
+  RootStackParamList
+} from "@/types";
+import { resetToTabWithStackScreens } from "@/utils";
 import { Ionicons } from "@expo/vector-icons";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useCallback } from "react";
 import { TouchableOpacity } from "react-native";
 
@@ -12,13 +13,16 @@ type Props = {
   iconColor: string;
 };
 
+type NavigationProp = StackNavigationProp<RootStackParamList>;
 export const Notification: FC<Props> = ({ iconColor }) => {
+  const navigation = useNavigation<NavigationProp>();
+
   const handleMenuPress = useCallback(() => {
-    resetToTabWithStack(TAB_NAMES.SETTINGS, [
-      { name: ROUTES.SETTINGS_SCREEN },
-      { name: ROUTES.NOTIFICATIONS_SCREEN, params: { id: "Akash SDK" } },
+    resetToTabWithStackScreens(navigation, "settings", [
+      { name: "settingsScreen" },
+      { name: "notificationsScreen", params: { id: "123" } },
     ]);
-  }, []);
+  }, [navigation]);
 
   return (
     <TouchableOpacity onPress={() => handleMenuPress()}>
