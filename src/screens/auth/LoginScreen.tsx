@@ -1,10 +1,19 @@
 import { ThemedText } from "@/components";
-import React, { FC } from "react";
+import { RootStackParamList } from "@/types";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { FC, useCallback } from "react";
 import { StyleSheet, TextInput, View, TouchableOpacity } from "react-native";
 
 type Props = {};
-
+type NavigationProp = StackNavigationProp<RootStackParamList>;
 export const LoginScreen: FC<Props> = () => {
+  const { navigate } = useNavigation<NavigationProp>();
+
+  const onHandleLogin = useCallback(() => {
+    return navigate("rootTabs", { screen: "dashboard" });
+  }, []);
+
   return (
     <View style={styles.container}>
       <ThemedText size="xLarge" font="bold">
@@ -24,7 +33,7 @@ export const LoginScreen: FC<Props> = () => {
         placeholderTextColor="#888"
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onHandleLogin}>
         <ThemedText style={styles.buttonText}>Login</ThemedText>
       </TouchableOpacity>
       <ThemedText style={styles.footerText}>
