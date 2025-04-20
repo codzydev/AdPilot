@@ -1,20 +1,23 @@
-export const ROOT_TABS = "RootTabs";
-export const DRAWER = "Drawer";
+export const ROOT_TABS = "rootTabs";
+export const DRAWER = "drawer";
+export const AUTH_STACK = "authStack";
 export const TAB_NAMES = {
-  DASHBOARD: "Dashboard",
-  PERFORMANCE: "Performance",
-  ASSISTANCE: "Assistance",
-  CAMPAIGNS: "Campaigns",
-  SETTINGS: "Settings",
+  DASHBOARD: "dashboard",
+  PERFORMANCE: "performance",
+  ASSISTANCE: "assistance",
+  CAMPAIGNS: "campaigns",
+  SETTINGS: "settings",
 } as const;
 
 export const ROUTES = {
-  DASHBOARD_SCREEN: "DashboardScreen",
-  PERFORMANCE_SCREEN: "PerformanceScreen",
-  ASSISTANT_SCREEN: "AssistantScreen",
-  CAMPAIGN_SCREENS: "CampaignScreens",
-  SETTINGS_SCREEN: "SettingsScreen",
-  NOTIFICATIONS_SCREEN: "NotificationsScreen",
-  FULL_SCREEN: "FullScreen",
-  DRAWER_SCREEN: "DrawerScreen",
+  DASHBOARD_SCREEN: "dashboardScreen",
+  PERFORMANCE_SCREEN: "performanceScreen",
+  ASSISTANT_SCREEN: "assistantScreen",
+  CAMPAIGN_SCREENS: "campaignScreens",
+  SETTINGS_SCREEN: "settingsScreen",
+  NOTIFICATIONS_SCREEN: "notificationsScreen",
+  FULL_SCREEN: "fullScreen",
+  DRAWER_SCREEN: "drawerScreen",
+  LOGIN_SCREEN: "loginScreen",
+  ONBORDING_SCREEN: "onboardingScreen",
 } as const;

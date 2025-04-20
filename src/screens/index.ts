@@ -6,6 +6,8 @@ export * from "./tabs/SettingsScreen";
 
 export * from "./notifications/NotificationsScreen";
 
-
 export * from "./fullScreen/FullScreen";
 export * from "./drawer/DrawerScreen";
+
+export * from "./auth/LoginScreen";
+export * from "./onBoarding";
