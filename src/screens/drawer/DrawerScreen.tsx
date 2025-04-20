@@ -73,10 +73,41 @@ export const DrawerScreen = () => {
     if (!navigationRef.isReady()) return;
     navigationRef.goBack(); // Close drawer
     timeoutRef.current = setTimeout(() => {
-      resetToTabWithStack(TAB_NAMES.SETTINGS, [
-        { name: ROUTES.SETTINGS_SCREEN },
-        { name: ROUTES.NOTIFICATIONS_SCREEN, params: { id: "Akash SDK" } },
-      ]);
+      // navigationRef.navigate("rootTabs", {
+      //   screen: TAB_NAMES.SETTINGS,
+      //   params: {
+      //     screen: ROUTES.NOTIFICATIONS_SCREEN,
+      //     params: { id: "Akash SDK" },
+      //   },
+      // });
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: "rootTabs", // your tab navigator name
+            state: {
+              routes: [
+                {
+                  name: TAB_NAMES.SETTINGS,
+                  state: {
+                    routes: [
+                      {
+                        name: ROUTES.NOTIFICATIONS_SCREEN,
+                        params: { id: "Akash SDK" },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      });
+
+      // resetToTabWithStack(TAB_NAMES.SETTINGS, [
+      //   { name: ROUTES.SETTINGS_SCREEN },
+      //   { name: ROUTES.NOTIFICATIONS_SCREEN, params: { id: "Akash SDK" } },
+      // ]);
     }, 50);
   }, []);
 

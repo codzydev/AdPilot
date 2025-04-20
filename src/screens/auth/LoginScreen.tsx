@@ -7,7 +7,10 @@ type Props = {};
 export const LoginScreen: FC<Props> = () => {
   return (
     <View style={styles.container}>
-      <ThemedText style={styles.title}>Welcome Back</ThemedText>
+      <ThemedText size="xLarge" font="bold">
+        Welcome Back
+      </ThemedText>
+
       <TextInput
         style={styles.input}
         placeholder="Email"
