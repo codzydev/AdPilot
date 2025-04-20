@@ -19,6 +19,7 @@ import {
 } from "../options";
 import SettingsStack from "../stack/SettingsStack";
 import { TabLabel } from "./TabLabel";
+import CustomTabBar from "./CustomTabBar";
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -27,47 +28,8 @@ export default function BottomTabs() {
   const borderColor = useThemeColor({}, "border");
   return (
     <Tab.Navigator
-      initialRouteName={TAB_NAMES.DASHBOARD}
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ size, focused }) => {
-          let iconName: keyof typeof Ionicons.glyphMap = "home";
-          switch (route.name) {
-            case TAB_NAMES.DASHBOARD:
-              iconName = "grid";
-              break;
-            case TAB_NAMES.PERFORMANCE:
-              iconName = "stats-chart";
-              break;
-            case TAB_NAMES.ASSISTANCE:
-              iconName = "help-circle";
-              break;
-            case TAB_NAMES.CAMPAIGNS:
-              iconName = "megaphone";
-              break;
-            case TAB_NAMES.SETTINGS:
-              iconName = "settings";
-              break;
-          }
-          return (
-            <TabLabel
-              label={route.name}
-              iconName={iconName}
-              size={size}
-              focused={focused}
-            />
-          );
-        },
-
-        tabBarLabel: ({ focused }) => null,
-
-        tabBarStyle: {
-          backgroundColor,
-          ...defaultShadowOptions,
-          shadowColor: borderColor,
-          height: 85,
-          paddingTop: Padding.SMALL,
-        },
-      })}
+      screenOptions={{ headerShown: true }}
+      tabBar={(props) => <CustomTabBar {...props} />}
     >
       <Tab.Screen
         name={TAB_NAMES.DASHBOARD}

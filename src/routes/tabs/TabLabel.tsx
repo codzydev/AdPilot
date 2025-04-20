@@ -1,8 +1,8 @@
 import { ThemedText } from "@/components";
-import { useThemeColor } from "@/hooks";
+import { useIsDarkMode, useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, useColorScheme, View } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -17,29 +17,71 @@ type Props = {
   focused: boolean;
 };
 
+const BORDER_WIDTH = 4;
+const ICON_WIDTH = 40;
 export const TabLabel = ({ label, iconName, size, focused }: Props) => {
-  const tabIconSelected = useThemeColor({}, "tabIconSelected");
-  const tabIconDefault = useThemeColor({}, "tabIconDefault");
-  const textColor = focused ? tabIconSelected : tabIconDefault;
-
+  const activeColor = useThemeColor({}, "tabIconSelected");
+  const inactiveColor = useThemeColor({}, "tabIconDefault");
+  const iconBg = focused ? activeColor : "transparent";
+  const iconColor = focused ? "#fff" : inactiveColor;
+  const textColor = focused ? activeColor : inactiveColor;
   const scale = useSharedValue(1);
+  const translateY = useSharedValue(0);
+  const isDark = useIsDarkMode();
+  const backgroundColor = useThemeColor({}, "background");
 
   useEffect(() => {
-    scale.value = withTiming(focused ? 1.25 : 1, {
-      duration: 300,
-      easing: Easing.inOut(Easing.ease),
+    scale.value = withTiming(focused ? 1.1 : 0.9, {
+      duration: 200,
+      easing: Easing.out(Easing.exp),
+    });
+    translateY.value = withTiming(focused ? -12 : 0, {
+      duration: 200,
+      easing: Easing.out(Easing.exp),
     });
   }, [focused]);
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: scale.value }],
+    transform: [{ translateY: translateY.value }, { scale: scale.value }],
   }));
 
   return (
     <Animated.View style={[styles.container, animatedStyle]}>
-      <Ionicons name={iconName} size={size} color={textColor} />
-      <ThemedText lightColor={textColor} darkColor={textColor} size="xxSmall">
-        {label}
+      {focused ? (
+        <View
+          style={{
+            width: ICON_WIDTH + BORDER_WIDTH * 2,
+            height: ICON_WIDTH + BORDER_WIDTH * 2,
+            borderRadius: (ICON_WIDTH + BORDER_WIDTH * 2) / 2,
+            backgroundColor,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              width: ICON_WIDTH,
+              height: ICON_WIDTH,
+              borderRadius: ICON_WIDTH / 2,
+              backgroundColor: iconBg,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Ionicons name={iconName} size={18} color={iconColor} />
+          </View>
+        </View>
+      ) : (
+        <Ionicons name={iconName} size={size} color={iconColor} />
+      )}
+      <ThemedText
+        lightColor={textColor}
+        darkColor={textColor}
+        size="xxSmall"
+        font={focused ? "bold" : "regular"}
+        style={{ marginTop: 4 }}
+      >
+        {label.toUpperCase()}
       </ThemedText>
     </Animated.View>
   );
@@ -49,6 +91,5 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
-    width: 70,
   },
 });
