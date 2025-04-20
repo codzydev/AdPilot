@@ -1,10 +1,7 @@
 import { MenuIcon, Notification } from "@/components";
 import { ArrowBack } from "@/components/icons/arrowBack";
-import { Margin } from "@/constants";
 import { useThemeColor } from "@/hooks";
-import { Ionicons } from "@expo/vector-icons";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native";
 
 import { StackNavigationOptions } from "@react-navigation/stack";
 
@@ -44,8 +41,7 @@ export const useScreenWithBackOptions = (): StackNavigationOptions => {
       shadowColor: borderColor,
     },
     headerLeft: () => {
-      const { goBack } = useNavigation();
-      return <ArrowBack onPress={goBack} iconColor={iconColor} />;
+      return <ArrowBack iconColor={iconColor} />;
     },
     headerRight: () => null,
   };

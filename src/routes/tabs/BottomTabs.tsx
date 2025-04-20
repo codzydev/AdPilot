@@ -4,7 +4,7 @@ import {
   AssistantScreen,
   CampaignScreens,
   DashboardScreen,
-  PerformanceScrees
+  PerformanceScrees,
 } from "@/screens";
 
 import { Padding } from "@/constants";
@@ -31,9 +31,6 @@ export default function BottomTabs() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ size, focused }) => {
           let iconName: keyof typeof Ionicons.glyphMap = "home";
-          const tabIconSelected = useThemeColor({}, "tabIconSelected");
-          const tabIconDefault = useThemeColor({}, "tabIconDefault");
-          const colour = focused ? tabIconSelected : tabIconDefault;
           switch (route.name) {
             case TAB_NAMES.DASHBOARD:
               iconName = "grid";

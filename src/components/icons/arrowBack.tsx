@@ -1,19 +1,17 @@
 import { Margin } from "@/constants";
+import { navigationRef } from "@/routes/ref/navigationRef";
 import { Ionicons } from "@expo/vector-icons";
-import React, { FC } from "react";
-import {
-  StyleSheet,
-  Text,
-  Touchable,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import React, { FC, useCallback } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 type Props = {
-  onPress: () => void;
   iconColor: string;
 };
-export const ArrowBack: FC<Props> = ({ onPress, iconColor }) => {
+export const ArrowBack: FC<Props> = ({ iconColor }) => {
+  const onPress = useCallback(() => {
+    navigationRef.goBack();
+  }, []);
+
   return (
     <TouchableOpacity onPress={onPress}>
       <Ionicons
