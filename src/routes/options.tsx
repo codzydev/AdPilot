@@ -1,14 +1,11 @@
+import { ArrowBack } from "@/components/button/arrowBack";
 import { Margin } from "@/constants";
 import { useThemeColor } from "@/hooks";
-import { RootStackParamList } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
-import { NavigatorScreenParams, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
-import {
-  StackNavigationOptions,
-  StackNavigationProp,
-} from "@react-navigation/stack";
+import { StackNavigationOptions } from "@react-navigation/stack";
 
 export const defaultShadowOptions = {
   shadowOffset: { width: 0, height: 0 },
@@ -22,7 +19,6 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
   const backgroundColor = useThemeColor({}, "background");
   const iconColor = useThemeColor({}, "icon");
   const borderColor = useThemeColor({}, "border");
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   return {
     headerTitle: () => null,
     headerStyle: {
@@ -66,15 +62,7 @@ export const useScreenWithBackOptions = (): StackNavigationOptions => {
     },
     headerLeft: () => {
       const { goBack } = useNavigation();
-      return (
-        <Ionicons
-          name="arrow-back"
-          size={24}
-          color={iconColor}
-          style={{ marginLeft: 12 }}
-          onPress={() => goBack()}
-        />
-      );
+      return <ArrowBack onPress={goBack} iconColor={iconColor} />;
     },
     headerRight: () => null,
   };

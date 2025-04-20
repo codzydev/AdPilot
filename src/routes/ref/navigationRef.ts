@@ -11,24 +11,24 @@ import { ValueOf } from "react-native-gesture-handler/lib/typescript/typeUtils";
 export const navigationRef = createNavigationContainerRef<RootStackParamList>();
 
 // Standard navigate
-export function navigate<T extends keyof RootStackParamList>(
-  name: T,
-  params?: RootStackParamList[T]
-) {
-  if (navigationRef.isReady()) {
-    navigationRef.navigate(name, params); // ✅ This works for both simple and nested
-  }
-}
+// export function navigate<T extends keyof RootStackParamList>(
+//   name: T,
+//   params?: RootStackParamList[T]
+// ) {
+//   if (navigationRef.isReady()) {
+//     navigationRef.navigate(name, params); // ✅ This works for both simple and nested
+//   }
+// }
 
 // Replace current screen
-export function replace<T extends keyof RootStackParamList>(
-  name: T,
-  params?: RootStackParamList[T]
-) {
-  if (navigationRef.isReady()) {
-    navigationRef.dispatch(StackActions.replace(name, params));
-  }
-}
+// export function replace<T extends keyof RootStackParamList>(
+//   name: T,
+//   params?: RootStackParamList[T]
+// ) {
+//   if (navigationRef.isReady()) {
+//     navigationRef.dispatch(StackActions.replace(name, params));
+//   }
+// }
 
 export function resetToTabWithStack<
   TTabName extends keyof BottomTabParamList,
