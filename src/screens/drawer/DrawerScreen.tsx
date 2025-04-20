@@ -6,6 +6,7 @@ import {
   Animated,
   PanResponder,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import {
   useNavigation,
@@ -14,6 +15,7 @@ import {
 } from "@react-navigation/native";
 import { FullScreenNavigationProp, FullScreenRouteProp } from "@/routes";
 import { BlurView } from "expo-blur";
+import { ThemedText } from "@/components";
 
 export const DrawerScreen = () => {
   const navigation = useNavigation<FullScreenNavigationProp>();
@@ -59,6 +61,20 @@ export const DrawerScreen = () => {
     })
   ).current;
 
+  const onPress = () => {
+    console.log(`onPress`);
+    navigation.goBack();
+
+
+    navigation.navigate("RootTabs", {
+      screen: "Settings",
+      params: {
+        screen: "NotificationsScreen",
+        params: { id: "123" },
+      },
+    });
+  };
+
   return (
     <View style={styles.container}>
       {/* Drawer Panel */}
@@ -68,6 +84,11 @@ export const DrawerScreen = () => {
       >
         <Text>TestScreen</Text>
         <Text>{name}</Text>
+        <TouchableOpacity onPress={() => onPress()}>
+          <ThemedText font="bold" size="xLarge">
+            SETTINGS
+          </ThemedText>
+        </TouchableOpacity>
       </Animated.View>
 
       {/* Tap-to-close Blur Overlay */}

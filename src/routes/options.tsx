@@ -4,8 +4,11 @@ import { RootStackParamList } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
 import { NavigatorScreenParams, useNavigation } from "@react-navigation/native";
-import { DrawerNavigationProp } from "@react-navigation/drawer";
-import { StackNavigationOptions } from "@react-navigation/stack";
+
+import {
+  StackNavigationOptions,
+  StackNavigationProp,
+} from "@react-navigation/stack";
 
 export const defaultShadowOptions = {
   shadowOffset: { width: 0, height: 0 },
@@ -19,7 +22,7 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
   const backgroundColor = useThemeColor({}, "background");
   const iconColor = useThemeColor({}, "icon");
   const borderColor = useThemeColor({}, "border");
-  const navigation = useNavigation<DrawerNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   return {
     headerTitle: () => null,
     headerStyle: {
@@ -33,7 +36,7 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
         size={24}
         color={iconColor}
         style={{ marginLeft: Margin.MEDIUM }}
-        onPress={() => navigation.toggleDrawer()}
+        // onPress={() => navigation.toggleDrawer()}
       />
     ),
     headerRight: () => (
@@ -54,7 +57,6 @@ export const useScreenWithBackOptions = (): StackNavigationOptions => {
   const backgroundColor = useThemeColor({}, "background");
   const iconColor = useThemeColor({}, "icon");
   const borderColor = useThemeColor({}, "border");
-
   return {
     headerTitle: () => null,
     headerStyle: {
