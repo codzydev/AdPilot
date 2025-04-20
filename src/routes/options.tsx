@@ -1,3 +1,4 @@
+import { MenuIcon } from "@/components";
 import { ArrowBack } from "@/components/button/arrowBack";
 import { Margin } from "@/constants";
 import { useThemeColor } from "@/hooks";
@@ -26,15 +27,7 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
       ...defaultShadowOptions,
       shadowColor: borderColor,
     },
-    headerLeft: () => (
-      <Ionicons
-        name="menu"
-        size={24}
-        color={iconColor}
-        style={{ marginLeft: Margin.MEDIUM }}
-        // onPress={() => navigation.toggleDrawer()}
-      />
-    ),
+    headerLeft: () => <MenuIcon iconColor={iconColor} />,
     headerRight: () => (
       <Ionicons
         name="notifications"

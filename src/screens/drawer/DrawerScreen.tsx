@@ -1,36 +1,25 @@
 import { ThemedText } from "@/components";
-import {
-  FullScreenNavigationProp,
-  FullScreenRouteProp,
-  ROUTES,
-  TAB_NAMES,
-} from "@/routes";
+import { FullScreenNavigationProp, ROUTES, TAB_NAMES } from "@/routes";
 import { navigationRef, resetToTabWithStack } from "@/routes/ref/navigationRef";
-import {
-  useIsFocused,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
 import React, { useCallback, useEffect, useRef } from "react";
 import {
   Animated,
   PanResponder,
   StyleSheet,
-  Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const DrawerScreen = () => {
   const navigation = useNavigation<FullScreenNavigationProp>();
-  const route = useRoute<FullScreenRouteProp>();
   const isFocused = useIsFocused();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { name } = route.params;
-
   const translateX = useRef(new Animated.Value(-300)).current;
+  const insets = useSafeAreaInsets();
 
   // Animate drawer when focused
   useEffect(() => {
@@ -92,14 +81,16 @@ export const DrawerScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {}]}>
       {/* Drawer Panel */}
       <Animated.View
-        style={[styles.drawer, { transform: [{ translateX }] }]}
+        style={[
+          styles.drawer,
+          { transform: [{ translateX }], paddingTop: insets.top },
+        ]}
         {...panResponder.panHandlers}
       >
-        <Text>TestScreen</Text>
-        <Text>{name}</Text>
+        <ThemedText>Drawer</ThemedText>
 
         <TouchableOpacity onPress={handleNavigateToNotifications}>
           <ThemedText font="bold" size="xLarge">
@@ -125,7 +116,6 @@ const styles = StyleSheet.create({
   drawer: {
     width: "70%",
     backgroundColor: "teal",
-    justifyContent: "center",
     alignItems: "center",
     zIndex: 2,
   },

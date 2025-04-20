@@ -8,19 +8,12 @@ type Props = {};
 
 export const DashboardScreen: FC<Props> = ({}) => {
   const { navigate } = useNavigation<DashboardNavProp>();
-  const navigation = useNavigation<DashboardNavProp>();
-  const route = useNavigation<DashboardRouteProp>();
   return (
     <View style={styles.conatainer}>
       <ThemedText size="xxLarge" font="bold">
         DashboardScreen
       </ThemedText>
-      <Text
-        onPress={() => navigate(ROUTES.DRAWER_SCREEN, { name: "Akash Cash" })}
-      >
-        Open Drawer
-      </Text>
-      {/* <Button title='hello' onPress={() => navigation.openDrawer()}>Open drawer</Button> */}
+      <Text onPress={() => navigate(ROUTES.DRAWER_SCREEN)}>Open Drawer</Text>
     </View>
   );
 };
