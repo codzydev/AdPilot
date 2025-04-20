@@ -1,5 +1,5 @@
 import { Margin } from "@/constants";
-import { ROUTES } from "@/routes";
+import { RootNaviatorPramList, ROUTES } from "@/routes";
 import { navigationRef } from "@/routes/ref/navigationRef";
 import { RootStackParamList } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,9 +11,8 @@ import { TouchableOpacity } from "react-native";
 type Props = {
   iconColor: string;
 };
-type NavigationProp = StackNavigationProp<RootStackParamList>;
 export const MenuIcon: FC<Props> = ({ iconColor }) => {
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useNavigation<RootNaviatorPramList>();
 
   const handleMenuPress = useCallback(() => {
     navigation.navigate("fullScreen", { name: "MENU 123" });

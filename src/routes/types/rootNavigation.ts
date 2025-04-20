@@ -1,8 +1,8 @@
 import { RootStackParamList } from "@/types";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ROUTES } from "../Routes";
+import { ROOT_STACK } from "../Routes";
 
-export type FullScreenNavigationProp = StackNavigationProp<
+export type RootNaviatorPramList = StackNavigationProp<
   RootStackParamList,
-  typeof ROUTES.FULL_SCREEN
+  typeof ROOT_STACK
 >;

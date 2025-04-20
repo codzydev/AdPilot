@@ -1,14 +1,12 @@
 import { ThemedText } from "@/components";
-import { RootStackParamList } from "@/types";
+import { RootNaviatorPramList } from "@/routes";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useCallback } from "react";
-import { StyleSheet, TextInput, View, TouchableOpacity } from "react-native";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
 type Props = {};
-type NavigationProp = StackNavigationProp<RootStackParamList>;
 export const LoginScreen: FC<Props> = () => {
-  const { navigate } = useNavigation<NavigationProp>();
+  const { navigate } = useNavigation<RootNaviatorPramList>();
 
   const onHandleLogin = useCallback(() => {
     return navigate("rootTabs", { screen: "dashboard" });

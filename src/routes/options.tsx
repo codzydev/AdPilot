@@ -2,8 +2,10 @@ import { MenuIcon, Notification } from "@/components";
 import { ArrowBack } from "@/components/icons/arrowBack";
 import { useThemeColor } from "@/hooks";
 import { BottomTabNavigationOptions } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
 
 import { StackNavigationOptions } from "@react-navigation/stack";
+import { RootNaviatorPramList } from "./types";
 
 export const defaultShadowOptions = {
   shadowOffset: { width: 0, height: 0 },
@@ -41,7 +43,8 @@ export const useScreenWithBackOptions = (): StackNavigationOptions => {
       shadowColor: borderColor,
     },
     headerLeft: () => {
-      return <ArrowBack iconColor={iconColor} />;
+      const {goBack} = useNavigation<RootNaviatorPramList>();
+      return <ArrowBack iconColor={iconColor} onPress={goBack} />;
     },
     headerRight: () => null,
   };

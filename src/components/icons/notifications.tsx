@@ -1,11 +1,8 @@
 import { Margin } from "@/constants";
-import {
-  RootStackParamList
-} from "@/types";
+import { RootNaviatorPramList } from "@/routes";
 import { resetToTabWithStackScreens } from "@/utils";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useCallback } from "react";
 import { TouchableOpacity } from "react-native";
 
@@ -13,9 +10,8 @@ type Props = {
   iconColor: string;
 };
 
-type NavigationProp = StackNavigationProp<RootStackParamList>;
 export const Notification: FC<Props> = ({ iconColor }) => {
-  const navigation = useNavigation<NavigationProp>();
+  const navigation = useNavigation<RootNaviatorPramList>();
 
   const handleMenuPress = useCallback(() => {
     resetToTabWithStackScreens(navigation, "settings", [
