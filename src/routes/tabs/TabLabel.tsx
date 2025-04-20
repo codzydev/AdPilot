@@ -27,7 +27,6 @@ export const TabLabel = ({ label, iconName, size, focused }: Props) => {
   const textColor = focused ? activeColor : inactiveColor;
   const scale = useSharedValue(1);
   const translateY = useSharedValue(0);
-  const isDark = useIsDarkMode();
   const backgroundColor = useThemeColor({}, "background");
 
   useEffect(() => {
@@ -56,6 +55,11 @@ export const TabLabel = ({ label, iconName, size, focused }: Props) => {
             backgroundColor,
             alignItems: "center",
             justifyContent: "center",
+            shadowOffset: { width: 0, height: 0 },
+            shadowColor: activeColor,
+            shadowOpacity: 0.2,
+            shadowRadius: 4,
+            elevation: 4,
           }}
         >
           <View
