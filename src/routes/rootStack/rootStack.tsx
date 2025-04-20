@@ -6,10 +6,11 @@ import {
 } from "@react-navigation/stack";
 import { ROOT_TABS, ROUTES } from "../Routes";
 import BottomTabs from "../tabs/BottomTabs";
+import { View } from "react-native";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-const RootNavigator = () => {
+const RootStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {/* <Stack.Screen name={ROOT_TABS} component={BottomTabs} /> */}
@@ -18,7 +19,7 @@ const RootNavigator = () => {
         name={ROUTES.FULL_SCREEN}
         component={FullScreen}
         options={{
-          presentation: "modal",
+          presentation: "card",
           ...TransitionPresets.ModalSlideFromBottomIOS,
           headerShown: true,
         }}
@@ -27,28 +28,17 @@ const RootNavigator = () => {
         name={ROUTES.DRAWER_SCREEN}
         component={DrawerScreen}
         options={{
-          presentation: "transparentModal",
           headerShown: false,
-          cardOverlayEnabled: false, // disable RN's overlay
+          presentation: "transparentModal", // yes, keep this!
           cardStyle: {
             backgroundColor: "transparent",
           },
-          cardStyleInterpolator: ({ current, layouts }) => ({
-            cardStyle: {
-              transform: [
-                {
-                  translateX: current.progress.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [-layouts.screen.width, 0], // from left
-                  }),
-                },
-              ],
-            },
-          }),
+          cardStyleInterpolator:
+            TransitionPresets.SlideFromLeftIOS.cardStyleInterpolator,
         }}
       />
     </Stack.Navigator>
   );
 };
 
-export default RootNavigator;
+export default RootStack;

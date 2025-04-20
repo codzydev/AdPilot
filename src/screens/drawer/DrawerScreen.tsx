@@ -1,30 +1,38 @@
-import React, { useEffect, useRef } from "react";
+import { ThemedText } from "@/components";
 import {
-  View,
-  StyleSheet,
-  Text,
-  Animated,
-  PanResponder,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from "react-native";
+  FullScreenNavigationProp,
+  FullScreenRouteProp,
+  ROUTES,
+  TAB_NAMES,
+} from "@/routes";
+import { navigationRef, resetToTabWithStack } from "@/routes/ref/navigationRef";
 import {
+  useIsFocused,
   useNavigation,
   useRoute,
-  useIsFocused,
 } from "@react-navigation/native";
-import { FullScreenNavigationProp, FullScreenRouteProp } from "@/routes";
 import { BlurView } from "expo-blur";
-import { ThemedText } from "@/components";
+import React, { useCallback, useEffect, useRef } from "react";
+import {
+  Animated,
+  PanResponder,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 export const DrawerScreen = () => {
   const navigation = useNavigation<FullScreenNavigationProp>();
   const route = useRoute<FullScreenRouteProp>();
   const isFocused = useIsFocused();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { name } = route.params;
 
   const translateX = useRef(new Animated.Value(-300)).current;
 
+  // Animate drawer when focused
   useEffect(() => {
     if (isFocused) {
       Animated.timing(translateX, {
@@ -35,6 +43,16 @@ export const DrawerScreen = () => {
     }
   }, [isFocused]);
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Gesture handler
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: (_, gestureState) =>
@@ -61,19 +79,17 @@ export const DrawerScreen = () => {
     })
   ).current;
 
-  const onPress = () => {
-    console.log(`onPress`);
-    navigation.goBack();
-
-
-    navigation.navigate("RootTabs", {
-      screen: "Settings",
-      params: {
-        screen: "NotificationsScreen",
-        params: { id: "123" },
-      },
-    });
-  };
+  // Navigate and close drawer
+  const handleNavigateToNotifications = useCallback(() => {
+    if (!navigationRef.isReady()) return;
+    navigationRef.goBack(); // Close drawer
+    timeoutRef.current = setTimeout(() => {
+      resetToTabWithStack(TAB_NAMES.SETTINGS, [
+        { name: ROUTES.SETTINGS_SCREEN },
+        { name: ROUTES.NOTIFICATIONS_SCREEN, params: { id: "Akash SDK" } },
+      ]);
+    }, 50);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -84,16 +100,17 @@ export const DrawerScreen = () => {
       >
         <Text>TestScreen</Text>
         <Text>{name}</Text>
-        <TouchableOpacity onPress={() => onPress()}>
+
+        <TouchableOpacity onPress={handleNavigateToNotifications}>
           <ThemedText font="bold" size="xLarge">
-            SETTINGS
+            Notification Screen
           </ThemedText>
         </TouchableOpacity>
       </Animated.View>
 
       {/* Tap-to-close Blur Overlay */}
       <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
-        <BlurView intensity={50} tint="dark" style={styles.overlay} />
+        <BlurView intensity={50} tint="extraLight" style={styles.overlay} />
       </TouchableWithoutFeedback>
     </View>
   );
