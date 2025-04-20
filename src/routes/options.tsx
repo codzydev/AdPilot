@@ -1,5 +1,5 @@
-import { MenuIcon } from "@/components";
-import { ArrowBack } from "@/components/button/arrowBack";
+import { MenuIcon, Notification } from "@/components";
+import { ArrowBack } from "@/components/icons/arrowBack";
 import { Margin } from "@/constants";
 import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
@@ -28,17 +28,7 @@ export const useScreenWithHeaderOptions = (): BottomTabNavigationOptions => {
       shadowColor: borderColor,
     },
     headerLeft: () => <MenuIcon iconColor={iconColor} />,
-    headerRight: () => (
-      <Ionicons
-        name="notifications"
-        size={24}
-        color={iconColor}
-        style={{ marginRight: Margin.MEDIUM }}
-        onPress={() => {
-          // handle right icon press
-        }}
-      />
-    ),
+    headerRight: () => <Notification iconColor={iconColor} />,
   };
 };
 
