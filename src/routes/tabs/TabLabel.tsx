@@ -45,39 +45,26 @@ export const TabLabel = ({ label, iconName, size, focused }: Props) => {
   }));
 
   return (
-    <Animated.View style={[styles.container, animatedStyle]}>
-      {focused ? (
-        <View
-          style={{
-            width: ICON_WIDTH + BORDER_WIDTH * 2,
-            height: ICON_WIDTH + BORDER_WIDTH * 2,
-            borderRadius: (ICON_WIDTH + BORDER_WIDTH * 2) / 2,
-            backgroundColor,
-            alignItems: "center",
-            justifyContent: "center",
-            shadowOffset: { width: 0, height: 0 },
-            shadowColor: activeColor,
-            shadowOpacity: 0.2,
-            shadowRadius: 4,
-            elevation: 4,
-          }}
-        >
-          <View
-            style={{
-              width: ICON_WIDTH,
-              height: ICON_WIDTH,
-              borderRadius: ICON_WIDTH / 2,
-              backgroundColor: iconBg,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Ionicons name={iconName} size={18} color={iconColor} />
-          </View>
-        </View>
-      ) : (
-        <Ionicons name={iconName} size={size} color={iconColor} />
-      )}
+    <Animated.View style={[styles.container]}>
+      <View style={styles.iconContainer}>
+        <Animated.View style={[animatedStyle]}>
+          {focused ? (
+            <View
+              style={[
+                styles.activeBubble,
+                { backgroundColor, shadowColor: iconBg },
+              ]}
+            >
+              <View style={[styles.innerIcon, { backgroundColor: iconBg }]}>
+                <Ionicons name={iconName} size={18} color={iconColor} />
+              </View>
+            </View>
+          ) : (
+            <Ionicons name={iconName} size={size} color={iconColor} />
+          )}
+        </Animated.View>
+      </View>
+
       <ThemedText
         lightColor={textColor}
         darkColor={textColor}
@@ -93,6 +80,28 @@ export const TabLabel = ({ label, iconName, size, focused }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
+    justifyContent: "flex-end",
+    // backgroundColor: "pink",
+    // // height: 65, // match tab bar height
+  },
+  iconContainer: {
+    height: ICON_WIDTH, // enough room for bubble + margin
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  activeBubble: {
+    borderRadius: (ICON_WIDTH + BORDER_WIDTH * 2) / 2,
+    justifyContent: "center",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  innerIcon: {
+    width: ICON_WIDTH,
+    height: ICON_WIDTH,
+    borderRadius: ICON_WIDTH / 2,
     alignItems: "center",
     justifyContent: "center",
   },
