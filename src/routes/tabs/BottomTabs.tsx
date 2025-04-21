@@ -16,6 +16,8 @@ import {
   defaultScreenOptions,
   defaultShadowOptions,
   useScreenWithHeaderOptions,
+  useScreenWithSearchBarOptions,
+  // useScreenWithSearchOptions,
 } from "../options";
 import SettingsStack from "../stack/SettingsStack";
 import { TabLabel } from "./TabLabel";
