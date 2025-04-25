@@ -7,18 +7,21 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { All } from "../tabs/All";
+import { Woman } from "../tabs/woman";
+import { Home } from "../tabs/home";
 
 export const headerTabsData = [
-  { id: "00", key: "All", content: "Component 1" },
-  { id: "01", key: "Women", content: "Component 2" },
-  { id: "02", key: "Home", content: "Component 3" },
-  { id: "03", key: "Men", content: "Component 4" },
-  { id: "04", key: "Curve", content: "Component 5" },
-  { id: "05", key: "Beauty", content: "Component 6" },
-  { id: "06", key: "Kids", content: "Component 7" },
-  { id: "07", key: "Shoes", content: "Component 8" },
-  { id: "08", key: "Accessories", content: "Component 9" },
-  { id: "09", key: "Sale", content: "Component 10" },
+  { id: "00", key: "All", content: "Component 1", children: <All /> },
+  { id: "01", key: "Women", content: "Component 2", children: <Woman /> },
+  { id: "02", key: "Home", content: "Component 3", children: <Home /> },
+  { id: "03", key: "Men", content: "Component 4", children: <All /> },
+  { id: "04", key: "Curve", content: "Component 5", children: <All /> },
+  { id: "05", key: "Beauty", content: "Component 6", children: <All /> },
+  { id: "06", key: "Kids", content: "Component 7", children: <All /> },
+  { id: "07", key: "Shoes", content: "Component 8", children: <All /> },
+  { id: "08", key: "Accessories", content: "Component 9", children: <All /> },
+  { id: "09", key: "Sale", content: "Component 10", children: <All /> },
 ];
 
 export const HeroHeader = () => {

@@ -12,4 +12,12 @@ export * from "./onBoarding/RenderItem";
 export * from "./onBoarding/Pagination";
 export * from "./onBoarding/Dot";
 
-export * from "./animated";
+export * from "./header/animatedHeader";
+export * from "./header/heroHeader";
+
+export * from "./tabs/tabHeaders";
+export * from "./tabs/tabContent";
+export * from "./tabs/tabContentLayout";
+export * from "./tabs/All";
+export * from "./tabs/woman";
+export * from "./tabs/home";
