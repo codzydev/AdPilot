@@ -70,7 +70,7 @@ export const PerformanceScrees = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ }}>
       <AnimatedHeader
         image={{
           uri: "https://jurlique.com.au/cdn/shop/articles/7_WAYS_TO_MAKE_EVERY_DAY_EARTH_DAY_9c2990e0-c893-4d66-9e7a-29b89c8dcf60.jpg?v=1742172049&width=1920",
