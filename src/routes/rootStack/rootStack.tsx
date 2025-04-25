@@ -15,7 +15,7 @@ const RootStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {/* <Stack.Screen name={ROOT_TABS} component={BottomTabs} /> */}
-      <Stack.Screen name={AUTH_STACK} component={AuthStack} />
+      {/* <Stack.Screen name={AUTH_STACK} component={AuthStack} /> */}
       <Stack.Screen
         name={ROOT_STACK}
         component={BottomTabs}
