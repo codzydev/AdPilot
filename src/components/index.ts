@@ -13,7 +13,7 @@ export * from "./onBoarding/Pagination";
 export * from "./onBoarding/Dot";
 
 export * from "./header/animatedHeader";
-export * from "./header/heroHeader";
+// export * from "./header/heroHeader";
 
 export * from "./tabs/tabHeaders";
 export * from "./tabs/tabContent";

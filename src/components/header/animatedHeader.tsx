@@ -13,6 +13,22 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { All } from "../tabs/All";
+import { Home } from "../tabs/home";
+import { Woman } from "../tabs/woman";
+
+export const headerTabsData = [
+  { id: "00", key: "All", content: "Component 1", children: <All /> },
+  { id: "01", key: "Women", content: "Component 2", children: <Woman /> },
+  { id: "02", key: "Home", content: "Component 3", children: <Home /> },
+  { id: "03", key: "Men", content: "Component 4", children: <All /> },
+  { id: "04", key: "Curve", content: "Component 5", children: <All /> },
+  { id: "05", key: "Beauty", content: "Component 6", children: <All /> },
+  { id: "06", key: "Kids", content: "Component 7", children: <All /> },
+  { id: "07", key: "Shoes", content: "Component 8", children: <All /> },
+  { id: "08", key: "Accessories", content: "Component 9", children: <All /> },
+  { id: "09", key: "Sale", content: "Component 10", children: <All /> },
+];
 
 type Props = {
   image: ImageSourcePropType;
@@ -97,6 +113,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     paddingHorizontal: 16,
-    paddingBottom: Padding.MEDIUM,
+    // paddingBottom: Padding.MEDIUM,
   },
 });
