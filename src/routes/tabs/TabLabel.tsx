@@ -7,6 +7,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  withTiming,
 } from "react-native-reanimated";
 
 type Props = {
@@ -18,8 +19,6 @@ type Props = {
   onPress: () => void;
 };
 
-const ICON_WIDTH = 40;
-
 export const TabLabel = ({
   label,
   iconName,
@@ -30,41 +29,49 @@ export const TabLabel = ({
 }: Props) => {
   const activeColor = useThemeColor({}, "tabIconSelected");
   const inactiveColor = useThemeColor({}, "tabIconDefault");
-  const iconBg = focused ? activeColor : "transparent";
   const iconColor = focused ? activeColor : inactiveColor;
   const textColor = focused ? activeColor : inactiveColor;
+
   const scale = useSharedValue(1);
+  const indicatorScaleX = useSharedValue(0);
+  const indicatorOpacity = useSharedValue(0);
 
   useEffect(() => {
-    scale.value = withSpring(focused ? 1 : 0.75, {
+    scale.value = withSpring(focused ? 1 : 0.85, {
       damping: 10,
       stiffness: 100,
     });
+    indicatorScaleX.value = withSpring(focused ? 1 : 0.5);
+    indicatorOpacity.value = withTiming(focused ? 1 : 0);
   }, [focused]);
 
-  const animatedStyle = useAnimatedStyle(() => ({
+  const iconAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
+  const indicatorAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scaleX: indicatorScaleX.value }],
+    opacity: indicatorOpacity.value,
+  }));
+
   return (
-    <TouchableOpacity
-      onPress={() => onPress()}
-      style={[styles.container, style]}
-    >
-      <Animated.View style={[styles.iconContainer]}>
-        <Animated.View style={[styles.iconContainer, animatedStyle]}>
-          <ThemedIcon
-            iconName={iconName}
-            iconColor={iconColor}
-            onPress={() => onPress()}
-          />
-        </Animated.View>
+    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
+      {/* ICON */}
+      <Animated.View style={[styles.iconContainer, iconAnimatedStyle]}>
+        <ThemedIcon
+          iconName={iconName}
+          iconColor={iconColor}
+          iconSize="small"
+          onPress={onPress}
+        />
       </Animated.View>
+      {/* LABEL */}
       <ThemedText
         lightColor={textColor}
         darkColor={textColor}
         size="xxSmall"
         style={{ marginTop: 4 }}
+        font={focused ? "bold" : "regular"}
       >
         {label.toUpperCase()}
       </ThemedText>
@@ -75,19 +82,12 @@ export const TabLabel = ({
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
+    paddingVertical: 8,
   },
   iconContainer: {
-    // height: ICON_WIDTH,
-    // justifyContent: "center",
-    // alignItems: "center",
-  },
-  bubble: {},
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10, // enough room for the pill indicator above
   },
 });
