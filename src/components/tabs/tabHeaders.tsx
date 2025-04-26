@@ -62,7 +62,11 @@ export const TabHeader: React.FC<TabHeaderProps> = ({
 );
 
 const styles = StyleSheet.create({
-  tabRow: { paddingHorizontal: 8, marginTop: Margin.SMALL / 2 },
+  tabRow: {
+    paddingHorizontal: 8,
+    marginTop: Margin.SMALL / 2,
+    position: "relative",
+  },
   tabItem: { marginRight: Margin.MEDIUM, paddingBottom: 6 },
   tabText: { color: "white" },
   tabTextActive: { color: "#000" },
