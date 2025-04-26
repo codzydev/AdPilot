@@ -8,6 +8,7 @@ import { AUTH_STACK, ROOT_STACK, ROUTES } from "../Routes";
 import BottomTabs from "../tabs/BottomTabs";
 import { defaultScreenOptions } from "../options";
 import AuthStack from "../stack/AuthStack";
+import { ProductViewScreen } from "@/screens/fullScreens/productViewScreen";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -27,6 +28,15 @@ const RootStack = () => {
       <Stack.Screen
         name={ROUTES.FULL_SCREEN}
         component={FullScreen}
+        options={{
+          presentation: "card",
+          ...TransitionPresets.ModalSlideFromBottomIOS,
+          headerShown: true,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES.PRODUCT_VIEW_SCREEN}
+        component={ProductViewScreen}
         options={{
           presentation: "card",
           ...TransitionPresets.ModalSlideFromBottomIOS,

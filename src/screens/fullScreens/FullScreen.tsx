@@ -6,12 +6,12 @@ import { StyleSheet, Text, View } from "react-native";
 type Props = {};
 
 export const FullScreen: FC<Props> = (props) => {
-  const { navigate } = useNavigation<FullScreenNavigationProp>();
+  const { navigate, goBack } = useNavigation<FullScreenNavigationProp>();
   const route = useRoute<FullScreenRouteProp>();
   const { name } = route.params;
   return (
     <View style={styles.conatainer}>
-      <Text>TestScreen</Text>
+      <Text onPress={() => goBack()}>TestScreen</Text>
       <Text>{name}</Text>
     </View>
   );
