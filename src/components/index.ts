@@ -22,4 +22,7 @@ export * from "./tabs/All";
 export * from "./tabs/woman";
 export * from "./tabs/home";
 
-export * from "./section/leftSectionItem";
+export * from "./section/leftSection";
+export * from "./section/rightSection";
+
+export * from "./card/categoryGrid";
