@@ -1,33 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated";
 import {
   AnimatedHeader,
-  SearchInput,
-  Seperator,
+  SearchSection,
   TabContent,
   TabHeader,
-  ThemedIcon,
-  ThemedText,
 } from "@/components";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ThemeContext } from "@react-navigation/native";
 import { headerTabsData } from "@/components/header/heroHeader";
 import { Margin, Padding } from "@/constants";
 import { useThemeColor } from "@/hooks";
+import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import Animated, {
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const HEADER_HEIGHT = 120;
 
@@ -56,7 +44,7 @@ export const PerformanceScrees = () => {
     width: indicatorWidth.value,
   }));
 
-  const cardBackground = useThemeColor({}, "cardBackground");
+  const searchInputContainer = useThemeColor({}, "cardBackground");
   const placeholder = useThemeColor({}, "placeholder");
 
   // ✅ Animation logic in one place
@@ -88,31 +76,19 @@ export const PerformanceScrees = () => {
         minHeaderHeight={MIN_HEADER_HEIGHT}
         containerStyle={{}}
       >
-        <View style={styles.headerTop}>
-          <ThemedIcon
-            iconName="notifications"
-            iconColor="#6B7280"
-            iconSize="small"
+        <SearchSection
+          backgroundColor={searchInputContainer}
+          placeholder="Search..."
+          style={{ marginTop: insets.top }}
+        >
+          <TabHeader
+            tabs={headerTabsData}
+            activeTab={activeTab}
+            onTabPress={handleTabPress}
+            indicatorStyle={indicatorStyle}
+            tabLayouts={tabLayouts}
           />
-          <ThemedIcon iconName="search" iconColor="#6B7280" iconSize="small" />
-
-          <SearchInput
-            placeholderTextColor={placeholder}
-            backgroundColor={cardBackground}
-            placeHolder="Search..."
-          />
-
-          <ThemedIcon iconName="heart" iconColor="#6B7280" iconSize="small" />
-          <ThemedIcon iconName="menu" iconColor="#6B7280" iconSize="small" />
-        </View>
-        <TabHeader
-          tabs={headerTabsData}
-          activeTab={activeTab}
-          onTabPress={handleTabPress}
-          indicatorStyle={indicatorStyle}
-          tabLayouts={tabLayouts}
-        />
-        <Seperator style={{ marginTop: Margin.SMALL }} />
+        </SearchSection>
       </AnimatedHeader>
 
       <Animated.ScrollView

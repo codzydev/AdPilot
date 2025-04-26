@@ -25,6 +25,7 @@ export * from "./tabs/home";
 
 export * from "./section/leftSection";
 export * from "./section/rightSection";
+export * from "./section/searchSection";
 
 export * from "./card/categoryGrid";
 

@@ -40,7 +40,7 @@ const RootStack = () => {
         options={{
           presentation: "card",
           ...TransitionPresets.ModalSlideFromBottomIOS,
-          headerShown: true,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>
