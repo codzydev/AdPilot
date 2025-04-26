@@ -16,21 +16,25 @@ import Animated, {
 } from "react-native-reanimated";
 import {
   AnimatedHeader,
+  SearchInput,
+  Seperator,
   TabContent,
   TabHeader,
+  ThemedIcon,
   ThemedText,
 } from "@/components";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemeContext } from "@react-navigation/native";
 import { headerTabsData } from "@/components/header/heroHeader";
 import { Margin, Padding } from "@/constants";
+import { useThemeColor } from "@/hooks";
 
 const HEADER_HEIGHT = 120;
 
 export const PerformanceScrees = () => {
   const scrollY = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const MIN_HEADER_HEIGHT = insets.top + Margin.SMALL / 2;
+  const MIN_HEADER_HEIGHT = insets.top + Margin.SMALL;
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -51,6 +55,9 @@ export const PerformanceScrees = () => {
     transform: [{ translateX: indicatorX.value }],
     width: indicatorWidth.value,
   }));
+
+  const cardBackground = useThemeColor({}, "cardBackground");
+  const placeholder = useThemeColor({}, "placeholder");
 
   // ✅ Animation logic in one place
   useEffect(() => {
@@ -82,25 +89,21 @@ export const PerformanceScrees = () => {
         containerStyle={{}}
       >
         <View style={styles.headerTop}>
-          <TouchableOpacity>
-            <Text style={styles.icon}>M</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.icon}>C</Text>
-          </TouchableOpacity>
+          <ThemedIcon
+            iconName="notifications"
+            iconColor="#6B7280"
+            iconSize="small"
+          />
+          <ThemedIcon iconName="search" iconColor="#6B7280" iconSize="small" />
 
-          <TextInput
-            placeholder="Search..."
-            style={styles.searchInput}
-            placeholderTextColor="#aaa"
+          <SearchInput
+            placeholderTextColor={placeholder}
+            backgroundColor={cardBackground}
+            placeHolder="Search..."
           />
 
-          <TouchableOpacity>
-            <Text style={styles.icon}>Q</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.icon}>H</Text>
-          </TouchableOpacity>
+          <ThemedIcon iconName="heart" iconColor="#6B7280" iconSize="small" />
+          <ThemedIcon iconName="menu" iconColor="#6B7280" iconSize="small" />
         </View>
         <TabHeader
           tabs={headerTabsData}
@@ -109,6 +112,7 @@ export const PerformanceScrees = () => {
           indicatorStyle={indicatorStyle}
           tabLayouts={tabLayouts}
         />
+        <Seperator style={{ marginTop: Margin.SMALL }} />
       </AnimatedHeader>
 
       <Animated.ScrollView
@@ -116,7 +120,6 @@ export const PerformanceScrees = () => {
         scrollEventThrottle={16}
         contentContainerStyle={{
           paddingTop: HEADER_HEIGHT + insets.top,
-          // backgroundColor: "pink",
         }}
       >
         <TabContent activeTab={activeTab} currentTab={currentTab} />
@@ -130,6 +133,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: Padding.MEDIUM,
+    gap: Margin.SMALL,
   },
   icon: {
     fontSize: 18,
@@ -154,10 +158,6 @@ const styles = StyleSheet.create({
   tabRow: {
     paddingHorizontal: 8,
     // backgroundColor: "#ccc",
-  },
-  tabItem: {
-    marginRight: 14,
-    paddingBottom: 6,
   },
   tabText: {
     fontSize: 16,

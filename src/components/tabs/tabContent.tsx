@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
   contentBox: {
     flex: 1,
     // backgroundColor: "#ccc",
-    margin: Margin.MEDIUM,
+    // margin: Margin.MEDIUM,
   },
 });

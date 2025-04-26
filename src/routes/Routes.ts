@@ -18,4 +18,5 @@ export const ROUTES = {
   FULL_SCREEN: "fullScreen",
   LOGIN_SCREEN: "loginScreen",
   ONBORDING_SCREEN: "onboardingScreen",
+  PRODUCT_VIEW_SCREEN: "productViewScreen",
 } as const;

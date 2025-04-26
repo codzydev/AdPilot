@@ -1,4 +1,5 @@
-import { Padding } from "@/constants";
+import { useThemeColor } from "@/hooks";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { ReactNode } from "react";
 import {
   ImageBackground,
@@ -18,8 +19,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { All } from "../tabs/All";
 import { Home } from "../tabs/home";
 import { Woman } from "../tabs/woman";
-import { LinearGradient } from "expo-linear-gradient";
-import { useThemeColor } from "@/hooks";
 
 export const headerTabsData = [
   { id: "00", key: "All", content: "Component 1", children: <All /> },
@@ -83,18 +82,18 @@ export const AnimatedHeader = ({
     };
   });
 
-  const contentTranslateY = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateY: interpolate(
-          scrollY.value,
-          [0, headerHeight - minHeaderHeight],
-          [0, -10],
-          Extrapolation.CLAMP
-        ),
-      },
-    ],
-  }));
+  // const contentTranslateY = useAnimatedStyle(() => ({
+  //   transform: [
+  //     {
+  //       translateY: interpolate(
+  //         scrollY.value,
+  //         [0, headerHeight - minHeaderHeight],
+  //         [0, -10],
+  //         Extrapolation.CLAMP
+  //       ),
+  //     },
+  //   ],
+  // }));
 
   return (
     <Animated.View
@@ -113,21 +112,14 @@ export const AnimatedHeader = ({
           style={StyleSheet.absoluteFillObject}
         />
         {/* Animated overlay with gradient inside */}
-        <Animated.View style={[styles.overlay, overlayStyle]}>
-          <LinearGradient
-            colors={["rgba(0, 77, 77, 0.8)", "rgba(0, 77, 77, 0)"]}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 0, y: 0 }}
-            style={StyleSheet.absoluteFillObject}
-          />
-        </Animated.View>
+        <Animated.View style={[styles.overlay, overlayStyle]} />
       </ImageBackground>
 
       {/* Move children below the safe area */}
       <Animated.View
         style={[
           styles.contentWrapper,
-          contentTranslateY,
+          // contentTranslateY,
           // { marginTop: insets.top }, // ✅ apply here only!
         ]}
       >

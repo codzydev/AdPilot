@@ -1,3 +1,4 @@
+import { Padding } from "@/constants";
 import React, { FC } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -10,6 +11,5 @@ export const TabContentLayout: FC<Props> = ({ children }) => {
 };
 
 const styles = StyleSheet.create({
-  conatainer: { flex: 1 },
-  // conatainer: { flex: 1, backgroundColor: "teal" },
+  conatainer: { flex: 1, padding: Padding.MEDIUM },
 });

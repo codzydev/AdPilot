@@ -1,8 +1,8 @@
 import { ThemedText } from "@/components";
-import { useIsDarkMode, useThemeColor } from "@/hooks";
+import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect } from "react";
-import { StyleSheet, useColorScheme, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Animated, {
   Easing,
   useAnimatedStyle,
