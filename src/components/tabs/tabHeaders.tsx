@@ -1,13 +1,8 @@
 import { Margin } from "@/constants";
 import React from "react";
-import {
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-} from "react-native";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import { ScrollView, TouchableOpacity, View, StyleSheet } from "react-native";
+import Animated from "react-native-reanimated";
+import { ThemedText } from "@/components";
 
 export interface TabItemType {
   id: string;
@@ -21,7 +16,6 @@ interface TabHeaderProps {
   activeTab: string;
   onTabPress: (tabId: string) => void;
   indicatorStyle: any;
-  
   tabLayouts: React.MutableRefObject<
     Record<string, { x: number; width: number }>
   >;
@@ -34,7 +28,7 @@ export const TabHeader: React.FC<TabHeaderProps> = ({
   indicatorStyle,
   tabLayouts,
 }) => (
-  <View style={{ position: "relative" }}>
+  <View>
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
@@ -50,14 +44,15 @@ export const TabHeader: React.FC<TabHeaderProps> = ({
           }}
         >
           <TouchableOpacity onPress={() => onTabPress(tab.id)}>
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === tab.id && styles.tabTextActive,
-              ]}
+            <ThemedText
+              font={activeTab === tab.id ? "bold" : "regular"}
+              size="medium"
+              style={
+                activeTab === tab.id ? styles.tabTextActive : styles.tabText
+              }
             >
-              {tab.key}
-            </Text>
+              {tab.key.toUpperCase()}
+            </ThemedText>
           </TouchableOpacity>
         </View>
       ))}
@@ -67,15 +62,15 @@ export const TabHeader: React.FC<TabHeaderProps> = ({
 );
 
 const styles = StyleSheet.create({
-  tabRow: { paddingHorizontal: 8, backgroundColor: "#ccc" },
+  tabRow: { paddingHorizontal: 8, marginTop: Margin.SMALL / 2 },
   tabItem: { marginRight: Margin.MEDIUM, paddingBottom: 6 },
-  tabText: { fontSize: 16, color: "white" },
-  tabTextActive: { fontWeight: "bold", color: "teal" },
+  tabText: { color: "white" },
+  tabTextActive: { color: "#000" },
   tabIndicator: {
     position: "absolute",
     bottom: 0,
     height: 2,
-    backgroundColor: "red",
+    backgroundColor: "#000",
     borderRadius: 10,
   },
 });

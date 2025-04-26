@@ -4,7 +4,7 @@ import Animated from "react-native-reanimated";
 import { ThemedText } from "@/components";
 import { TabItemType } from "./tabHeaders";
 import { TabContentLayout } from "./tabContentLayout";
-import { Margin } from "@/constants";
+import { Margin, Padding } from "@/constants";
 
 interface TabContentProps {
   activeTab: string;
@@ -25,10 +25,7 @@ export const TabContent: React.FC<TabContentProps> = ({
 const styles = StyleSheet.create({
   contentBox: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#ccc",
-    padding: 40,
+    // backgroundColor: "#ccc",
     margin: Margin.MEDIUM,
   },
 });
