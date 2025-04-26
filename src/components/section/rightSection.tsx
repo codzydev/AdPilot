@@ -2,6 +2,8 @@ import { Margin } from "@/constants";
 import React, { FC } from "react";
 import { StyleSheet, View } from "react-native";
 import { CategoryGrid } from "../card/categoryGrid";
+import { useNavigation } from "@react-navigation/native";
+import { RootNaviatorPramList } from "@/routes";
 
 type Props = {};
 export const stylesData = [
@@ -43,26 +45,33 @@ export const stylesData = [
 ];
 
 export const RightSection: FC<Props> = (props) => {
+  const { navigate } = useNavigation<RootNaviatorPramList>();
+
+  const handleProductPress = (itemId: string) => {
+    console.log("Selected Product ID:", itemId);
+    navigate("productViewScreen", { id: itemId });
+  };
+
   return (
     <View style={{ gap: Margin.SMALL }}>
       <CategoryGrid
         options={stylesData}
-        onSelect={(id) => console.log("Selected:", id)}
+        onSelect={handleProductPress}
         numColumns={3}
       />
       <CategoryGrid
         options={stylesData}
-        onSelect={(id) => console.log("Selected:", id)}
+        onSelect={handleProductPress}
         numColumns={3}
       />
       <CategoryGrid
         options={stylesData}
-        onSelect={(id) => console.log("Selected:", id)}
+        onSelect={handleProductPress}
         numColumns={3}
       />
       <CategoryGrid
         options={stylesData}
-        onSelect={(id) => console.log("Selected:", id)}
+        onSelect={handleProductPress}
         numColumns={3}
       />
     </View>

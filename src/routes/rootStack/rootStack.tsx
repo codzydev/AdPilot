@@ -38,7 +38,8 @@ const RootStack = () => {
         name={ROUTES.PRODUCT_VIEW_SCREEN}
         component={ProductViewScreen}
         options={{
-          presentation: "card",
+          presentation: "modal",
+          gestureEnabled: false,
           ...TransitionPresets.ModalSlideFromBottomIOS,
           headerShown: false,
         }}
