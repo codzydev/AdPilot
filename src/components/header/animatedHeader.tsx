@@ -11,11 +11,15 @@ import Animated, {
   Extrapolation,
   interpolate,
   useAnimatedStyle,
+  useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { All } from "../tabs/All";
 import { Home } from "../tabs/home";
 import { Woman } from "../tabs/woman";
+import { LinearGradient } from "expo-linear-gradient";
+import { useThemeColor } from "@/hooks";
 
 export const headerTabsData = [
   { id: "00", key: "All", content: "Component 1", children: <All /> },
@@ -58,6 +62,27 @@ export const AnimatedHeader = ({
     ),
   }));
 
+  const backgroundOpacity = useSharedValue(0);
+
+  const backgroundColor = useThemeColor({}, "background");
+
+  const overlayStyle = useAnimatedStyle(() => {
+    // Interpolate scroll position to opacity (0 when not scrolled, 1 when scrolled)
+    const opacity = interpolate(
+      scrollY.value,
+      [0, headerHeight / 2], // Adjust when to trigger
+      [0, 1],
+      Extrapolation.CLAMP
+    );
+
+    backgroundOpacity.value = withTiming(opacity, { duration: 500 });
+
+    return {
+      opacity: backgroundOpacity.value,
+      backgroundColor: backgroundColor,
+    };
+  });
+
   const contentTranslateY = useAnimatedStyle(() => ({
     transform: [
       {
@@ -79,14 +104,31 @@ export const AnimatedHeader = ({
         source={image}
         style={styles.imageBackground}
         resizeMode="cover"
-      />
+      >
+        {/* Overlay on top of the image */}
+        <Animated.View style={[styles.overlay, overlayStyle]}>
+          {/* <LinearGradient
+            colors={["rgba(0, 128, 128, 0.6)", "rgba(0, 128, 128, 0)"]} // Teal to transparent
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={StyleSheet.absoluteFillObject}
+          /> */}
+
+          <LinearGradient
+            colors={["rgba(0, 77, 77, 0.8)", "rgba(0, 77, 77, 0)"]} // Dark teal to transparent
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            style={StyleSheet.absoluteFillObject}
+          />
+        </Animated.View>
+      </ImageBackground>
 
       {/* Move children below the safe area */}
       <Animated.View
         style={[
           styles.contentWrapper,
           contentTranslateY,
-          { marginTop: insets.top }, // ✅ apply here only!
+          // { marginTop: insets.top }, // ✅ apply here only!
         ]}
       >
         {children}
@@ -104,7 +146,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   imageBackground: {
-    ...StyleSheet.absoluteFillObject,
+    // ...StyleSheet.absoluteFillObject,
+    // backgroundColor: "red",
     width: "100%",
     height: "100%",
   },
@@ -112,7 +155,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
     // paddingBottom: Padding.MEDIUM,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    // backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black
+    // backgroundColor: "rgba(255, 0, 0, 0.6)", // Semi-transparent red
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

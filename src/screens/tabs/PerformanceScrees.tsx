@@ -23,6 +23,7 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemeContext } from "@react-navigation/native";
 import { headerTabsData } from "@/components/header/heroHeader";
+import { Padding } from "@/constants";
 
 const HEADER_HEIGHT = 120;
 
@@ -70,7 +71,7 @@ export const PerformanceScrees = () => {
   };
 
   return (
-    <View style={{ }}>
+    <View style={{}}>
       <AnimatedHeader
         image={{
           uri: "https://jurlique.com.au/cdn/shop/articles/7_WAYS_TO_MAKE_EVERY_DAY_EARTH_DAY_9c2990e0-c893-4d66-9e7a-29b89c8dcf60.jpg?v=1742172049&width=1920",
@@ -115,7 +116,7 @@ export const PerformanceScrees = () => {
         scrollEventThrottle={16}
         contentContainerStyle={{
           paddingTop: HEADER_HEIGHT + insets.top,
-          backgroundColor: "pink",
+          // backgroundColor: "pink",
         }}
       >
         <TabContent activeTab={activeTab} currentTab={currentTab} />
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   headerTop: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "teal",
+    paddingHorizontal: Padding.MEDIUM,
   },
   icon: {
     fontSize: 18,
@@ -147,12 +148,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     height: 2,
-    backgroundColor: "red",
+    // backgroundColor: "red",
     borderRadius: 10,
   },
   tabRow: {
     paddingHorizontal: 8,
-    backgroundColor: "#ccc",
+    // backgroundColor: "#ccc",
   },
   tabItem: {
     marginRight: 14,
@@ -164,6 +165,6 @@ const styles = StyleSheet.create({
   },
   tabTextActive: {
     fontWeight: "bold",
-    color: "teal",
+    // color: "teal",
   },
 });

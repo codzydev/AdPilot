@@ -10,5 +10,6 @@ export const TabContentLayout: FC<Props> = ({ children }) => {
 };
 
 const styles = StyleSheet.create({
-  conatainer: { flex: 1, backgroundColor: "teal" },
+  conatainer: { flex: 1 },
+  // conatainer: { flex: 1, backgroundColor: "teal" },
 });
