@@ -6,6 +6,7 @@ export * from "./icons/arrowBack";
 export * from "./icons/menuIcon";
 export * from "./icons/notifications";
 export * from "./icons/searchIcon";
+export * from "./icons/themedIcon";
 
 export * from "./onBoarding/CustomButton";
 export * from "./onBoarding/RenderItem";
@@ -26,3 +27,5 @@ export * from "./section/leftSection";
 export * from "./section/rightSection";
 
 export * from "./card/categoryGrid";
+
+export * from "./input/searchInput";

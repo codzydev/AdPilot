@@ -1,11 +1,9 @@
 // LeftSectionItem.tsx
 import { Margin, Padding } from "@/constants";
+import { useThemeColor } from "@/hooks";
 import React from "react";
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
-import Animated, {
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import Animated from "react-native-reanimated";
 import { ThemedText } from "../ui";
 
 interface LeftSectionProps {
@@ -21,22 +19,22 @@ export const LeftSection: React.FC<LeftSectionProps> = ({
   onPress,
   backgroundColor,
 }) => {
-  const animatedStyle = useAnimatedStyle(() => ({
-    backgroundColor: withTiming(isActive ? backgroundColor : "transparent", {
-      duration: 300,
-    }),
-  }));
+  const color = useThemeColor({}, "text");
+  const background = useThemeColor({}, "background");
+  const backgroundColorx = isActive ? background : "transparent";
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <Animated.View style={[styles.itemContainer, animatedStyle]}>
+      <Animated.View
+        style={[styles.itemContainer, { backgroundColor: backgroundColorx }]}
+      >
         {/* Smooth sliding indicator bar */}
         <Animated.View
           style={[
             styles.indicator,
             {
-              backgroundColor: isActive ? "white" : "transparent",
-              opacity: withTiming(isActive ? 1 : 0, { duration: 300 }),
+              backgroundColor: isActive ? color : "transparent",
+              // opacity: withTiming(isActive ? 1 : 0, { duration: 300 }),
             },
           ]}
         />

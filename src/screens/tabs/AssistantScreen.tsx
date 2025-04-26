@@ -1,11 +1,13 @@
 import {
-  All,
   headerTabsData,
   LeftSection,
   RightSection,
+  SearchInput,
+  Seperator,
   TabHeader,
+  ThemedIcon,
 } from "@/components";
-import { Padding } from "@/constants";
+import { Margin, Padding } from "@/constants";
 import { useThemeColor } from "@/hooks";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -61,6 +63,8 @@ export const AssistantScreen = () => {
   const tabLayouts = useRef<Record<string, { x: number; width: number }>>({});
   const { top } = useSafeAreaInsets();
   const backgroundColor = useThemeColor({}, "background");
+  const cardBackground = useThemeColor({}, "cardBackground");
+  const placeholder = useThemeColor({}, "placeholder");
 
   const indicatorStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: indicatorX.value }],
@@ -94,25 +98,21 @@ export const AssistantScreen = () => {
     <View style={styles.container}>
       {/* Header Top */}
       <View style={[styles.headerTop, { paddingTop: top }]}>
-        <TouchableOpacity>
-          <Text style={styles.icon}>M</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.icon}>C</Text>
-        </TouchableOpacity>
+        <ThemedIcon
+          iconName="notifications"
+          iconColor="#6B7280"
+          iconSize="small"
+        />
+        <ThemedIcon iconName="search" iconColor="#6B7280" iconSize="small" />
 
-        <TextInput
-          placeholder="Search..."
-          style={styles.searchInput}
-          placeholderTextColor="#aaa"
+        <SearchInput
+          placeholderTextColor={placeholder}
+          backgroundColor={cardBackground}
+          placeHolder="Search..."
         />
 
-        <TouchableOpacity>
-          <Text style={styles.icon}>Q</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.icon}>H</Text>
-        </TouchableOpacity>
+        <ThemedIcon iconName="heart" iconColor="#6B7280" iconSize="small" />
+        <ThemedIcon iconName="menu" iconColor="#6B7280" iconSize="small" />
       </View>
 
       {/* Tab Header */}
@@ -124,12 +124,12 @@ export const AssistantScreen = () => {
         tabLayouts={tabLayouts}
       />
 
-      <View style={{ height: 1, backgroundColor: "#ccc", marginTop: 10 }} />
+      <Seperator style={{ marginTop: Margin.SMALL }} />
 
       {/* Content */}
       <View style={styles.contentWrapper}>
         {/* Left Sidebar */}
-        <View style={styles.sidebar}>
+        <View style={[styles.sidebar, { backgroundColor: cardBackground }]}>
           <FlatList
             ref={flatListRef}
             data={sectionData}
@@ -152,7 +152,10 @@ export const AssistantScreen = () => {
         </View>
 
         {/* Right Content */}
-        <ScrollView style={styles.rightContent}>
+        <ScrollView
+          style={styles.rightContent}
+          showsVerticalScrollIndicator={false}
+        >
           <RightSection />
         </ScrollView>
       </View>
@@ -169,19 +172,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: Padding.MEDIUM,
+    gap: Margin.SMALL,
   },
   icon: {
     fontSize: 18,
     paddingHorizontal: 8,
     color: "white",
-  },
-  searchInput: {
-    flex: 1,
-    backgroundColor: "#eee",
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    fontSize: 14,
   },
   contentWrapper: {
     flex: 1,
@@ -189,7 +185,7 @@ const styles = StyleSheet.create({
   },
   sidebar: {
     width: 120,
-    backgroundColor: "#444",
+    // backgroundColor: "#444",
   },
   sectionItem: {
     padding: 10,

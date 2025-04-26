@@ -1,15 +1,9 @@
-import { Margin } from "@/constants";
-import React, { useRef } from "react";
-import {
-  ScrollView,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-} from "react-native";
-import Animated from "react-native-reanimated";
 import { ThemedText } from "@/components";
+import { Margin, Padding } from "@/constants";
+import { useThemeColor } from "@/hooks";
+import React, { useRef } from "react";
+import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
+import Animated from "react-native-reanimated";
 
 export interface TabItemType {
   id: string;
@@ -36,6 +30,8 @@ export const TabHeader: React.FC<TabHeaderProps> = ({
   tabLayouts,
 }) => {
   const scrollViewRef = useRef<ScrollView>(null);
+  const disabled = useThemeColor({}, "disabled");
+  const text = useThemeColor({}, "text");
 
   const handleTabPress = (tabId: string) => {
     onTabPress(tabId);
@@ -68,18 +64,23 @@ export const TabHeader: React.FC<TabHeaderProps> = ({
           >
             <TouchableOpacity onPress={() => handleTabPress(tab.id)}>
               <ThemedText
+                darkColor="red"
                 font={activeTab === tab.id ? "bold" : "regular"}
                 size="medium"
-                style={
-                  activeTab === tab.id ? styles.tabTextActive : styles.tabText
-                }
+                style={{ color: activeTab === tab.id ? text : disabled }}
               >
                 {tab.key.toUpperCase()}
               </ThemedText>
             </TouchableOpacity>
           </View>
         ))}
-        <Animated.View style={[styles.tabIndicator, indicatorStyle]} />
+        <Animated.View
+          style={[
+            styles.tabIndicator,
+            indicatorStyle,
+            { backgroundColor: text },
+          ]}
+        />
       </ScrollView>
     </View>
   );
@@ -91,14 +92,16 @@ const styles = StyleSheet.create({
     marginTop: Margin.SMALL / 2,
     position: "relative",
   },
-  tabItem: { marginRight: Margin.MEDIUM, paddingBottom: 6 },
-  tabText: { color: "white" },
-  tabTextActive: { color: "#000" },
+  tabItem: {
+    marginRight: Margin.MEDIUM,
+    paddingBottom: Padding.SMALL / 2, // ⬅️ Increased padding to make space for the indicator!
+    alignItems: "center", // Make sure text and indicator align vertically
+    justifyContent: "center",
+  },
   tabIndicator: {
     position: "absolute",
-    bottom: 0,
+    bottom: 0, // ⬅️ Move the indicator up slightly if needed (try 4–6)
     height: 2,
-    backgroundColor: "#000",
     borderRadius: 10,
   },
 });
