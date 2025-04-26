@@ -34,10 +34,10 @@ export const TabLabel = ({ label, iconName, size, focused }: Props) => {
       duration: 200,
       easing: Easing.out(Easing.exp),
     });
-    translateY.value = withTiming(focused ? -12 : 0, {
-      duration: 200,
-      easing: Easing.out(Easing.exp),
-    });
+    // translateY.value = withTiming(focused ? -14 : 0, {
+    //   duration: 200,
+    //   easing: Easing.out(Easing.exp),
+    // });
   }, [focused]);
 
   const animatedStyle = useAnimatedStyle(() => ({
