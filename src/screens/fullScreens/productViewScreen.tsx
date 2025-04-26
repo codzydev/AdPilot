@@ -20,6 +20,7 @@ export const ProductViewScreen: FC<Props> = (props) => {
   return (
     <View style={styles.conatainer}>
       <SearchSection
+        onClose={() => goBack()}
         backgroundColor={searchInputContainer}
         placeholder="Search..."
         style={{ marginTop: top }}

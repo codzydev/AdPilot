@@ -9,6 +9,7 @@ type Props = {
   backgroundColor: string;
   placeholder: string;
   style?: ViewStyle;
+  onClose?: () => void;
   children?: React.ReactNode;
 };
 
@@ -16,12 +17,18 @@ export const SearchSection: FC<Props> = ({
   backgroundColor,
   placeholder,
   style,
+  onClose,
   children,
 }) => {
   return (
     <>
       <View style={[styles.headerTop, style]}>
-        <ThemedIcon iconName="close" iconColor="#6B7280" iconSize="small" />
+        <ThemedIcon
+          iconName="close"
+          iconColor="#6B7280"
+          iconSize="small"
+          onPress={onClose}
+        />
         <ThemedIcon iconName="search" iconColor="#6B7280" iconSize="small" />
         <SearchInput
           placeholderTextColor={placeholder}

@@ -56,7 +56,6 @@ export const AssistantScreen = () => {
   const insets = useSafeAreaInsets();
   const flatListRef = useRef<FlatList>(null);
 
-  
   const indicatorStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: indicatorX.value }],
     width: indicatorWidth.value,
@@ -82,6 +81,8 @@ export const AssistantScreen = () => {
       viewPosition: 0.5, // Auto-center the item when possible
     });
   };
+
+
 
   return (
     <View style={styles.container}>
