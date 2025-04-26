@@ -2,23 +2,13 @@ import {
   headerTabsData,
   LeftSection,
   RightSection,
-  SearchInput,
-  Seperator,
+  SearchSection,
   TabHeader,
-  ThemedIcon,
 } from "@/components";
 import { Margin, Padding } from "@/constants";
 import { useThemeColor } from "@/hooks";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import {
   useAnimatedStyle,
   useSharedValue,
@@ -61,11 +51,12 @@ export const AssistantScreen = () => {
   const indicatorX = useSharedValue(0);
   const indicatorWidth = useSharedValue(0);
   const tabLayouts = useRef<Record<string, { x: number; width: number }>>({});
-  const { top } = useSafeAreaInsets();
   const backgroundColor = useThemeColor({}, "background");
-  const cardBackground = useThemeColor({}, "cardBackground");
-  const placeholder = useThemeColor({}, "placeholder");
+  const searchInputContainer = useThemeColor({}, "cardBackground");
+  const insets = useSafeAreaInsets();
+  const flatListRef = useRef<FlatList>(null);
 
+  
   const indicatorStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: indicatorX.value }],
     width: indicatorWidth.value,
@@ -84,8 +75,6 @@ export const AssistantScreen = () => {
     setActiveTab(tabId);
   };
 
-  const flatListRef = useRef<FlatList>(null);
-
   const handleSectionPress = (itemId: string, index: number) => {
     setActiveSection(itemId);
     flatListRef.current?.scrollToIndex({
@@ -96,40 +85,26 @@ export const AssistantScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header Top */}
-      <View style={[styles.headerTop, { paddingTop: top }]}>
-        <ThemedIcon
-          iconName="notifications"
-          iconColor="#6B7280"
-          iconSize="small"
+      <SearchSection
+        backgroundColor={searchInputContainer}
+        placeholder="Search..."
+        style={{ marginTop: insets.top }}
+      >
+        <TabHeader
+          tabs={headerTabsData}
+          activeTab={activeTab}
+          onTabPress={handleTabPress}
+          indicatorStyle={indicatorStyle}
+          tabLayouts={tabLayouts}
         />
-        <ThemedIcon iconName="search" iconColor="#6B7280" iconSize="small" />
-
-        <SearchInput
-          placeholderTextColor={placeholder}
-          backgroundColor={cardBackground}
-          placeHolder="Search..."
-        />
-
-        <ThemedIcon iconName="heart" iconColor="#6B7280" iconSize="small" />
-        <ThemedIcon iconName="menu" iconColor="#6B7280" iconSize="small" />
-      </View>
-
-      {/* Tab Header */}
-      <TabHeader
-        tabs={headerTabsData}
-        activeTab={activeTab}
-        onTabPress={handleTabPress}
-        indicatorStyle={indicatorStyle}
-        tabLayouts={tabLayouts}
-      />
-
-      <Seperator style={{ marginTop: Margin.SMALL }} />
+      </SearchSection>
 
       {/* Content */}
       <View style={styles.contentWrapper}>
         {/* Left Sidebar */}
-        <View style={[styles.sidebar, { backgroundColor: cardBackground }]}>
+        <View
+          style={[styles.sidebar, { backgroundColor: searchInputContainer }]}
+        >
           <FlatList
             ref={flatListRef}
             data={sectionData}
