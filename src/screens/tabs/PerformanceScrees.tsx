@@ -23,14 +23,14 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ThemeContext } from "@react-navigation/native";
 import { headerTabsData } from "@/components/header/heroHeader";
-import { Padding } from "@/constants";
+import { Margin, Padding } from "@/constants";
 
 const HEADER_HEIGHT = 120;
 
 export const PerformanceScrees = () => {
   const scrollY = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const MIN_HEADER_HEIGHT = insets.top;
+  const MIN_HEADER_HEIGHT = insets.top + Margin.SMALL / 2;
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
