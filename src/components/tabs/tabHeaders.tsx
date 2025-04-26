@@ -1,6 +1,13 @@
 import { Margin } from "@/constants";
-import React from "react";
-import { ScrollView, TouchableOpacity, View, StyleSheet } from "react-native";
+import React, { useRef } from "react";
+import {
+  ScrollView,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from "react-native";
 import Animated from "react-native-reanimated";
 import { ThemedText } from "@/components";
 
@@ -27,39 +34,56 @@ export const TabHeader: React.FC<TabHeaderProps> = ({
   onTabPress,
   indicatorStyle,
   tabLayouts,
-}) => (
-  <View>
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.tabRow}
-    >
-      {tabs.map((tab) => (
-        <View
-          key={tab.id}
-          style={styles.tabItem}
-          onLayout={(e) => {
-            const { x, width } = e.nativeEvent.layout;
-            tabLayouts.current[tab.id] = { x, width };
-          }}
-        >
-          <TouchableOpacity onPress={() => onTabPress(tab.id)}>
-            <ThemedText
-              font={activeTab === tab.id ? "bold" : "regular"}
-              size="medium"
-              style={
-                activeTab === tab.id ? styles.tabTextActive : styles.tabText
-              }
-            >
-              {tab.key.toUpperCase()}
-            </ThemedText>
-          </TouchableOpacity>
-        </View>
-      ))}
-      <Animated.View style={[styles.tabIndicator, indicatorStyle]} />
-    </ScrollView>
-  </View>
-);
+}) => {
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  const handleTabPress = (tabId: string) => {
+    onTabPress(tabId);
+
+    const layout = tabLayouts.current[tabId];
+    if (layout && scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({
+        x: layout.x + layout.width / 2 - 150, // Adjust '150' based on half of your screen width
+        animated: true,
+      });
+    }
+  };
+
+  return (
+    <View>
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.tabRow}
+      >
+        {tabs.map((tab) => (
+          <View
+            key={tab.id}
+            style={styles.tabItem}
+            onLayout={(e) => {
+              const { x, width } = e.nativeEvent.layout;
+              tabLayouts.current[tab.id] = { x, width };
+            }}
+          >
+            <TouchableOpacity onPress={() => handleTabPress(tab.id)}>
+              <ThemedText
+                font={activeTab === tab.id ? "bold" : "regular"}
+                size="medium"
+                style={
+                  activeTab === tab.id ? styles.tabTextActive : styles.tabText
+                }
+              >
+                {tab.key.toUpperCase()}
+              </ThemedText>
+            </TouchableOpacity>
+          </View>
+        ))}
+        <Animated.View style={[styles.tabIndicator, indicatorStyle]} />
+      </ScrollView>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   tabRow: {

@@ -104,20 +104,20 @@ export const AnimatedHeader = ({
         source={image}
         style={styles.imageBackground}
         resizeMode="cover"
+        blurRadius={2}
       >
-        {/* Overlay on top of the image */}
+        <LinearGradient
+          colors={["rgba(0, 77, 77, 0.8)", "rgba(0, 77, 77, 0)"]}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 0, y: 0 }}
+          style={StyleSheet.absoluteFillObject}
+        />
+        {/* Animated overlay with gradient inside */}
         <Animated.View style={[styles.overlay, overlayStyle]}>
-          {/* <LinearGradient
-            colors={["rgba(0, 128, 128, 0.6)", "rgba(0, 128, 128, 0)"]} // Teal to transparent
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
-            style={StyleSheet.absoluteFillObject}
-          /> */}
-
           <LinearGradient
-            colors={["rgba(0, 77, 77, 0.8)", "rgba(0, 77, 77, 0)"]} // Dark teal to transparent
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 1 }}
+            colors={["rgba(0, 77, 77, 0.8)", "rgba(0, 77, 77, 0)"]}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 0, y: 0 }}
             style={StyleSheet.absoluteFillObject}
           />
         </Animated.View>

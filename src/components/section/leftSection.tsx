@@ -8,14 +8,14 @@ import Animated, {
 } from "react-native-reanimated";
 import { ThemedText } from "../ui";
 
-interface LeftSectionItemProps {
+interface LeftSectionProps {
   item: { id: string; title: string };
   isActive: boolean;
   onPress: () => void;
   backgroundColor: string;
 }
 
-export const LeftSectionItem: React.FC<LeftSectionItemProps> = ({
+export const LeftSection: React.FC<LeftSectionProps> = ({
   item,
   isActive,
   onPress,

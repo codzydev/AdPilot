@@ -1,4 +1,10 @@
-import { All, headerTabsData, LeftSectionItem, TabHeader } from "@/components";
+import {
+  All,
+  headerTabsData,
+  LeftSection,
+  RightSection,
+  TabHeader,
+} from "@/components";
 import { Padding } from "@/constants";
 import { useThemeColor } from "@/hooks";
 import React, { useEffect, useRef, useState } from "react";
@@ -118,6 +124,8 @@ export const AssistantScreen = () => {
         tabLayouts={tabLayouts}
       />
 
+      <View style={{ height: 1, backgroundColor: "#ccc", marginTop: 10 }} />
+
       {/* Content */}
       <View style={styles.contentWrapper}>
         {/* Left Sidebar */}
@@ -128,7 +136,7 @@ export const AssistantScreen = () => {
             showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => (
-              <LeftSectionItem
+              <LeftSection
                 item={item}
                 isActive={item.id === activeSection}
                 onPress={() => handleSectionPress(item.id, index)}
@@ -145,7 +153,7 @@ export const AssistantScreen = () => {
 
         {/* Right Content */}
         <ScrollView style={styles.rightContent}>
-          <All />
+          <RightSection />
         </ScrollView>
       </View>
     </View>
@@ -178,7 +186,6 @@ const styles = StyleSheet.create({
   contentWrapper: {
     flex: 1,
     flexDirection: "row",
-    marginVertical: 10,
   },
   sidebar: {
     width: 120,
@@ -192,5 +199,6 @@ const styles = StyleSheet.create({
   rightContent: {
     flex: 1,
     paddingHorizontal: Padding.MEDIUM,
+    paddingVertical: Padding.SMALL,
   },
 });
