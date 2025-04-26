@@ -32,18 +32,15 @@ const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
         const iconName = getIconName(route.name);
 
         return (
-          <TouchableOpacity
+          <TabLabel
+            label={route.name}
+            iconName={iconName}
+            size={22}
+            focused={isFocused}
             key={route.key}
             onPress={onPress}
             style={styles.tab}
-          >
-            <TabLabel
-              label={route.name}
-              iconName={iconName}
-              size={22}
-              focused={isFocused}
-            />
-          </TouchableOpacity>
+          />
         );
       })}
     </View>

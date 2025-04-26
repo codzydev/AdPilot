@@ -1,13 +1,12 @@
-import { ThemedText } from "@/components";
+import { ThemedIcon, ThemedText } from "@/components";
 import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
 import Animated, {
-  Easing,
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
+  withSpring,
 } from "react-native-reanimated";
 
 type Props = {
@@ -15,66 +14,61 @@ type Props = {
   iconName: keyof typeof Ionicons.glyphMap;
   size: number;
   focused: boolean;
+  style?: ViewStyle;
+  onPress: () => void;
 };
 
-const BORDER_WIDTH = 4;
 const ICON_WIDTH = 40;
-export const TabLabel = ({ label, iconName, size, focused }: Props) => {
+
+export const TabLabel = ({
+  label,
+  iconName,
+  size,
+  focused,
+  style,
+  onPress,
+}: Props) => {
   const activeColor = useThemeColor({}, "tabIconSelected");
   const inactiveColor = useThemeColor({}, "tabIconDefault");
   const iconBg = focused ? activeColor : "transparent";
-  const iconColor = focused ? "#fff" : inactiveColor;
+  const iconColor = focused ? activeColor : inactiveColor;
   const textColor = focused ? activeColor : inactiveColor;
   const scale = useSharedValue(1);
-  const translateY = useSharedValue(0);
-  const backgroundColor = useThemeColor({}, "background");
 
   useEffect(() => {
-    scale.value = withTiming(focused ? 1.1 : 0.9, {
-      duration: 200,
-      easing: Easing.out(Easing.exp),
+    scale.value = withSpring(focused ? 1 : 0.75, {
+      damping: 10,
+      stiffness: 100,
     });
-    // translateY.value = withTiming(focused ? -14 : 0, {
-    //   duration: 200,
-    //   easing: Easing.out(Easing.exp),
-    // });
   }, [focused]);
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }, { scale: scale.value }],
+    transform: [{ scale: scale.value }],
   }));
 
   return (
-    <Animated.View style={[styles.container]}>
-      <View style={styles.iconContainer}>
-        <Animated.View style={[animatedStyle]}>
-          {focused ? (
-            <View
-              style={[
-                styles.activeBubble,
-                { backgroundColor, shadowColor: iconBg },
-              ]}
-            >
-              <View style={[styles.innerIcon, { backgroundColor: iconBg }]}>
-                <Ionicons name={iconName} size={18} color={iconColor} />
-              </View>
-            </View>
-          ) : (
-            <Ionicons name={iconName} size={size} color={iconColor} />
-          )}
+    <TouchableOpacity
+      onPress={() => onPress()}
+      style={[styles.container, style]}
+    >
+      <Animated.View style={[styles.iconContainer]}>
+        <Animated.View style={[styles.iconContainer, animatedStyle]}>
+          <ThemedIcon
+            iconName={iconName}
+            iconColor={iconColor}
+            onPress={() => onPress()}
+          />
         </Animated.View>
-      </View>
-
+      </Animated.View>
       <ThemedText
         lightColor={textColor}
         darkColor={textColor}
         size="xxSmall"
-        font={focused ? "bold" : "regular"}
         style={{ marginTop: 4 }}
       >
         {label.toUpperCase()}
       </ThemedText>
-    </Animated.View>
+    </TouchableOpacity>
   );
 };
 
@@ -82,27 +76,18 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "flex-end",
-    // backgroundColor: "pink",
-    // // height: 65, // match tab bar height
   },
   iconContainer: {
-    height: ICON_WIDTH, // enough room for bubble + margin
-    justifyContent: "flex-end",
-    alignItems: "center",
+    // height: ICON_WIDTH,
+    // justifyContent: "center",
+    // alignItems: "center",
   },
-  activeBubble: {
-    borderRadius: (ICON_WIDTH + BORDER_WIDTH * 2) / 2,
-    justifyContent: "center",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  innerIcon: {
-    width: ICON_WIDTH,
-    height: ICON_WIDTH,
-    borderRadius: ICON_WIDTH / 2,
-    alignItems: "center",
-    justifyContent: "center",
+  bubble: {},
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
 });

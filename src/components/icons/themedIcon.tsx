@@ -1,4 +1,4 @@
-import { Margin } from "@/constants";
+import { HIT_SLOP_SMALL, Margin } from "@/constants";
 import { IconSize, IconSizeMap } from "@/constants/iconSize"; // ✅ Import your IconSize setup
 import { useThemeColor } from "@/hooks";
 import { Ionicons } from "@expo/vector-icons";
@@ -28,11 +28,12 @@ export const ThemedIcon: FC<ThemedIconProps> = ({
   return (
     <TouchableOpacity
       onPress={onPress}
+      hitSlop={HIT_SLOP_SMALL}
       disabled={disabled}
       style={style}
       activeOpacity={0.7}
     >
-      <Ionicons name={iconName} size={sizeValue} color={color} />
+      <Ionicons name={iconName} size={sizeValue} color={iconColor ?? color} />
     </TouchableOpacity>
   );
 };
