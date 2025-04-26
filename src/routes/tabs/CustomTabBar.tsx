@@ -1,56 +1,90 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import React from "react";
-import { View, TouchableOpacity, StyleSheet, Platform } from "react-native";
+import React, { useEffect } from "react";
+import { View, StyleSheet, Platform, Dimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { TabLabel } from "./TabLabel"; // adjust path
+import { TabLabel } from "./TabLabel";
 import { useThemeColor } from "@/hooks";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
+
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const INDICATOR_WIDTH = 30; // Adjust this as needed to match icon width
+const TAB_HEIGHT = 54; // Adjust this as needed to match icon width
 
 const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
   const insets = useSafeAreaInsets();
   const backgroundColor = useThemeColor({}, "background");
+  const activeColor = useThemeColor({}, "tabIconSelected");
+
+  const tabWidth = SCREEN_WIDTH / state.routes.length;
+  const translateX = useSharedValue(0);
+
+  useEffect(() => {
+    translateX.value = withTiming(state.index * tabWidth, { duration: 250 });
+  }, [state.index]);
+
+  const indicatorStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: translateX.value }],
+    left: (tabWidth - INDICATOR_WIDTH) / 2, // Center the indicator
+  }));
 
   return (
     <View
       style={[
-        styles.container,
+        styles.wrapper,
         { paddingBottom: insets.bottom, backgroundColor },
       ]}
     >
-      {state.routes.map((route, index) => {
-        const isFocused = state.index === index;
-        const onPress = () => {
-          const event = navigation.emit({
-            type: "tabPress",
-            target: route.key,
-            canPreventDefault: true,
-          });
-          if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name);
-          }
-        };
+      {/* TOP INDICATOR (Outside of the tabs) */}
+      <Animated.View
+        style={[
+          styles.indicator,
+          { width: INDICATOR_WIDTH, backgroundColor: activeColor },
+          indicatorStyle,
+        ]}
+      />
 
-        const iconName = getIconName(route.name);
+      {/* Tab items */}
+      <View style={styles.container}>
+        {state.routes.map((route, index) => {
+          const isFocused = state.index === index;
+          const onPress = () => {
+            const event = navigation.emit({
+              type: "tabPress",
+              target: route.key,
+              canPreventDefault: true,
+            });
+            if (!isFocused && !event.defaultPrevented) {
+              navigation.navigate(route.name);
+            }
+          };
 
-        return (
-          <TabLabel
-            label={route.name}
-            iconName={iconName}
-            size={22}
-            focused={isFocused}
-            key={route.key}
-            onPress={onPress}
-            style={styles.tab}
-          />
-        );
-      })}
+          const iconName = getIconName(route.name);
+
+          return (
+            <TabLabel
+              label={route.name}
+              iconName={iconName}
+              size={22}
+              focused={isFocused}
+              key={route.key}
+              onPress={onPress}
+              style={styles.tab}
+            />
+          );
+        })}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    height: 85,
+  wrapper: {
+    position: "relative",
+    backgroundColor: "transparent", // important for shadow visibility
     ...Platform.select({
       ios: {
         shadowColor: "#000",
@@ -63,27 +97,37 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  container: {
+    flexDirection: "row",
+    height: TAB_HEIGHT, // reduced height
+  },
   tab: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingVertical: 8, // slightly reduced for compactness
+  },
+  indicator: {
+    position: "absolute",
+    height: 6,
+    borderRadius: 3,
+    top: 0,
   },
 });
-
 const getIconName = (routeName: string) => {
   switch (routeName) {
     case "dashboard":
-      return "grid";
+      return "grid-outline";
     case "performance":
-      return "stats-chart";
+      return "stats-chart-outline";
     case "assistance":
-      return "help-circle";
+      return "help-circle-outline";
     case "campaigns":
-      return "megaphone";
+      return "megaphone-outline";
     case "settings":
-      return "settings";
+      return "settings-outline";
     default:
-      return "ellipse";
+      return "ellipse-outline";
   }
 };
 
