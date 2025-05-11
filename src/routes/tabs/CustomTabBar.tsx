@@ -12,7 +12,7 @@ import Animated, {
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const INDICATOR_WIDTH = 30; // Adjust this as needed to match icon width
-const TAB_HEIGHT = 54; // Adjust this as needed to match icon width
+const TAB_HEIGHT = 45; // Adjust this as needed to match icon width
 
 const CustomTabBar = ({ state, navigation }: BottomTabBarProps) => {
   const insets = useSafeAreaInsets();
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   indicator: {
     position: "absolute",
-    height: 6,
+    height: 4,
     borderRadius: 3,
     top: 0,
   },
