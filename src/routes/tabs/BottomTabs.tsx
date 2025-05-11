@@ -7,20 +7,14 @@ import {
   PerformanceScrees,
 } from "@/screens";
 
-import { Padding } from "@/constants";
 import { useThemeColor } from "@/hooks";
-import { Ionicons } from "@expo/vector-icons";
 import { BottomTabParamList } from "../../types";
 import { TAB_NAMES } from "../Routes";
 import {
   defaultScreenOptions,
-  defaultShadowOptions,
-  useScreenWithHeaderOptions,
-  useScreenWithSearchBarOptions,
-  // useScreenWithSearchOptions,
+  useScreenWithHeaderOptions
 } from "../options";
 import SettingsStack from "../stack/SettingsStack";
-import { TabLabel } from "./TabLabel";
 import CustomTabBar from "./CustomTabBar";
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
